@@ -5,7 +5,7 @@ extends Node2D
 func _ready():
 	for child in get_children():
 		if child is DeadCultist:
-			child.attack_target = $PlayerPlaceHolder
+			child.attack_target = $player_place_holder
 			child.set_state(DeadCultist.FOLLOWING)
 
 

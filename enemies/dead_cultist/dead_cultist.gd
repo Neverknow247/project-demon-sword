@@ -12,8 +12,10 @@ enum {
 var state := IDLE
 var state_process = process_idle
 
-@onready var ground_cast = $GroundCast
-@onready var idle_timer = $IdleTimer
+@onready var ground_cast = $ground_cast
+@onready var idle_timer = $idle_timer
+@onready var animation_player = $animation_player
+@onready var boid_area = $boid_area
 
 #@onready var idle_timer = 
 
@@ -38,7 +40,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func process_idle(delta:float) -> void:
-	$AnimationPlayer.play("idle")
+	animation_player.play("idle")
 	if not idle_paused:
 		if not ground_cast.is_colliding():
 			idle_direction *= -1
@@ -51,11 +53,11 @@ func process_idle(delta:float) -> void:
 		pass
 
 func process_attack(delta:float) -> void:
-	$AnimationPlayer.play("attack")
+	animation_player.play("attack")
 	velocity.x = 0
 
 func process_following(delta:float) -> void:
-	$AnimationPlayer.play("idle")
+	animation_player.play("idle")
 	
 	if attack_target == null:
 		set_state(IDLE)
@@ -67,7 +69,6 @@ func process_following(delta:float) -> void:
 		if not ground_cast.is_colliding():
 			velocity.x = 0
 		else:
-			#velocity.x = attack_target_direction * speed
 			var attack_target_distance = abs(attack_target.position.x - position.x)
 			
 			if attack_target_distance <= 8 and randi() % 8 == 0:
@@ -76,7 +77,7 @@ func process_following(delta:float) -> void:
 			
 			var closest_neighbor_pos_x
 			var shortest_neighbor_distance = null
-			for enemy in $BoidArea.get_overlapping_bodies():
+			for enemy in boid_area.get_overlapping_bodies():
 				if enemy == self:
 					continue
 				if enemy is DeadCultist:
@@ -85,15 +86,12 @@ func process_following(delta:float) -> void:
 						closest_neighbor_pos_x = enemy.position.x
 						shortest_neighbor_distance = neighbor_distance
 			
-			#if attack_
 			if attack_target_distance > 16 and (shortest_neighbor_distance == null or attack_target_distance < shortest_neighbor_distance):
-				#velocity.x = attack_target_direction * speed
 				velocity.x = lerp(velocity.x, attack_target_direction * speed, delta)
 			elif shortest_neighbor_distance != null:
 				velocity.x = lerp(velocity.x, -sign(closest_neighbor_pos_x - position.x) * speed * 0.5, delta)
 			else:
 				velocity.x = 0
-			#if 
 			
 		ground_cast.position.x = 7 * attack_target_direction
 	else:
@@ -120,11 +118,11 @@ func set_state(value) -> void:
 			pass
 
 func set_flip(value) -> void:
-	$Sprite.flip_h = value
+	$sprite.flip_h = value
 	if value == false:
-		$FlipHelper.scale.x = 1
+		$flip_helper.scale.x = 1
 	else:
-		$FlipHelper.scale.x = -1
+		$flip_helper.scale.x = -1
 
 
 func _on_animation_player_animation_finished(anim_name):

@@ -19,7 +19,7 @@ resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,7 +34,7 @@ resource_name = "attack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,7 +46,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FlipHelper/HitBox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("flip_helper/hit_box/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -61,7 +61,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -73,7 +73,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("FlipHelper/HitBox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("flip_helper/hit_box/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -93,58 +93,58 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgpfr"]
 size = Vector2(8, 18)
 
-[node name="DeadCultist" type="CharacterBody2D"]
+[node name="dead_cultist" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_fycvj")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="sprite" type="Sprite2D" parent="."]
 position = Vector2(8.9407e-08, -9)
 scale = Vector2(0.0625, 0.28125)
 texture = ExtResource("1_7qym3")
 vframes = 2
 
-[node name="FlipHelper" type="Node2D" parent="."]
+[node name="flip_helper" type="Node2D" parent="."]
 
-[node name="HitBox" parent="FlipHelper" instance=ExtResource("3_r8rsg")]
+[node name="hit_box" parent="flip_helper" instance=ExtResource("3_r8rsg")]
 position = Vector2(11, -9)
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FlipHelper/HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flip_helper/hit_box"]
 shape = SubResource("CircleShape2D_3o2sy")
 disabled = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="collision_shape_2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_fyql6")
 
-[node name="GroundCast" type="RayCast2D" parent="."]
+[node name="ground_cast" type="RayCast2D" parent="."]
 position = Vector2(-7, -13)
 target_position = Vector2(0, 15)
 
-[node name="IdleTimer" type="Timer" parent="."]
+[node name="idle_timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
-[node name="BoidArea" type="Area2D" parent="."]
+[node name="boid_area" type="Area2D" parent="."]
 position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BoidArea"]
+[node name="collision_shape_2D" type="CollisionShape2D" parent="boid_area"]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_uj0lm")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="animation_player" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_23u6s")
 }
 
-[node name="hurtbox" parent="." instance=ExtResource("4_51765")]
+[node name="hurt_box" parent="." instance=ExtResource("4_51765")]
 collision_layer = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+[node name="collision_shape_2D" type="CollisionShape2D" parent="hurt_box"]
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_fgpfr")
 
-[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="idle_timer" to="." method="_on_idle_timer_timeout"]
+[connection signal="animation_finished" from="animation_player" to="." method="_on_animation_player_animation_finished"]

@@ -21,6 +21,7 @@ var state_process = process_idle
 
 @export var speed = 40.0
 @export var jump_velocity = -400.0
+@export var health := 3.0
 
 var idle_direction := -1
 var idle_paused := false
@@ -128,3 +129,9 @@ func set_flip(value) -> void:
 func _on_animation_player_animation_finished(anim_name):
 	if state == ATTACKING and anim_name == "attack":
 		set_state(FOLLOWING)
+
+
+func _on_hurt_box_hurt(hitbox, damage):
+	health -= damage
+	if health <= 0:
+		queue_free()

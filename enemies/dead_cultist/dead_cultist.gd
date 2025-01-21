@@ -1,0 +1,132 @@
+extends CharacterBody2D
+
+class_name DeadCultist
+
+enum {
+	RESTING,
+	IDLE,
+	FOLLOWING,
+	ATTACKING,
+	DEAD
+}
+var state := IDLE
+var state_process = process_idle
+
+@onready var ground_cast = $GroundCast
+@onready var idle_timer = $IdleTimer
+
+#@onready var idle_timer = 
+
+@export var speed = 40.0
+@export var jump_velocity = -400.0
+
+var idle_direction := -1
+var idle_paused := false
+
+var attack_target = null
+
+func _ready() -> void:
+	pass
+
+func _physics_process(delta):
+	state_process.call(delta)
+	
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	move_and_slide()
+
+func process_idle(delta:float) -> void:
+	$AnimationPlayer.play("idle")
+	if not idle_paused:
+		if not ground_cast.is_colliding():
+			idle_direction *= -1
+		velocity.x = idle_direction * speed
+		ground_cast.position.x = 7 * idle_direction
+	else:
+		velocity.x = 0
+	
+	if velocity.x > 0:
+		pass
+
+func process_attack(delta:float) -> void:
+	$AnimationPlayer.play("attack")
+	velocity.x = 0
+
+func process_following(delta:float) -> void:
+	$AnimationPlayer.play("idle")
+	
+	if attack_target == null:
+		set_state(IDLE)
+		return
+	
+	if not idle_paused:
+		var attack_target_direction = sign(attack_target.position.x - position.x)
+		
+		if not ground_cast.is_colliding():
+			velocity.x = 0
+		else:
+			#velocity.x = attack_target_direction * speed
+			var attack_target_distance = abs(attack_target.position.x - position.x)
+			
+			if attack_target_distance <= 8 and randi() % 8 == 0:
+				set_state(ATTACKING)
+				return
+			
+			var closest_neighbor_pos_x
+			var shortest_neighbor_distance = null
+			for enemy in $BoidArea.get_overlapping_bodies():
+				if enemy == self:
+					continue
+				if enemy is DeadCultist:
+					var neighbor_distance = abs(enemy.position.x - position.x)
+					if shortest_neighbor_distance == null or neighbor_distance < shortest_neighbor_distance:
+						closest_neighbor_pos_x = enemy.position.x
+						shortest_neighbor_distance = neighbor_distance
+			
+			#if attack_
+			if attack_target_distance > 16 and (shortest_neighbor_distance == null or attack_target_distance < shortest_neighbor_distance):
+				#velocity.x = attack_target_direction * speed
+				velocity.x = lerp(velocity.x, attack_target_direction * speed, delta)
+			elif shortest_neighbor_distance != null:
+				velocity.x = lerp(velocity.x, -sign(closest_neighbor_pos_x - position.x) * speed * 0.5, delta)
+			else:
+				velocity.x = 0
+			#if 
+			
+		ground_cast.position.x = 7 * attack_target_direction
+	else:
+		velocity.x = 0
+
+func _on_idle_timer_timeout():
+	if state == IDLE:
+		idle_paused = not idle_paused
+		idle_timer.wait_time = randf_range(0.5, 2.0)
+		idle_timer.start()
+
+func set_state(value) -> void:
+	state = value
+	match state:
+		RESTING:
+			pass
+		IDLE:
+			state_process = process_idle
+		FOLLOWING:
+			state_process = process_following
+		ATTACKING:
+			state_process = process_attack
+		DEAD:
+			pass
+
+func set_flip(value) -> void:
+	$Sprite.flip_h = value
+	if value == false:
+		$FlipHelper.scale.x = 1
+	else:
+		$FlipHelper.scale.x = -1
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if state == ATTACKING and anim_name == "attack":
+		set_state(FOLLOWING)

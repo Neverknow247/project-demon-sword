@@ -20,7 +20,6 @@ var state_process = process_idle
 #@onready var idle_timer = 
 
 @export var speed = 40.0
-@export var jump_velocity = -400.0
 @export var health := 3.0
 
 var idle_direction := -1

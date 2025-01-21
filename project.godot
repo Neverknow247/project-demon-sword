@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 Utils="*res://singletons/utils.gd"
 Stats="*res://singletons/stats.gd"
 SaveAndLoad="*res://save_and_load/save_and_load.gd"
+Director="*res://singletons/director.gd"
 
 [display]
 

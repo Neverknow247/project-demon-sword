@@ -1,0 +1,5 @@
+res://delete_before_export/default_window.tscn
+res://enemies/enemy_test.tscn
+res://enemies/demon_bat/demon_bat.tscn
+res://enemies/demon_bat/demon_bat.gd
+res://enemies/enemy_test.gd

@@ -43,8 +43,8 @@ func process_following(delta) -> void:
 
 func process_slam_attack(delta) -> void:
 	velocity.x = 0
-	if is_on_floor() and $AttackCooldown.is_stopped():
-		$AttackCooldown.start()
+	if is_on_floor() and $attack_cooldown.is_stopped():
+		$attack_cooldown.start()
 	else:
 		velocity.y = slam_speed
 

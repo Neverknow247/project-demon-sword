@@ -4,19 +4,21 @@ class_name DemonBat
 
 @export var speed = 50.0
 @export var slam_speed = 100.0
+@export var health := 2
 
 @onready var ceiling_cast = $ceiling_cast
 
-enum {
-	RESTING,
-	IDLE,
-	FOLLOWING,
-	SLAM_ATTACK,
-	SLAM_RECOVERY,
-	DEAD
-}
+#enum {
+	#RESTING,
+	#IDLE,
+	#FOLLOWING,
+	#SLAM_ATTACK,
+	#SLAM_RECOVERY,
+	#CRAWL_FOLLOW,
+	#DEAD
+#}
 
-var state = IDLE
+#var state = IDLE
 var state_process = process_idle
 
 var attack_target = null
@@ -39,7 +41,7 @@ func process_following(delta) -> void:
 		velocity.x = sign(attack_target.position.x - position.x) * speed
 		
 		if abs(attack_target.position.x - position.x) < 8:
-			set_state(SLAM_ATTACK)
+			set_state(process_slam_attack)
 
 func process_slam_attack(delta) -> void:
 	velocity.x = 0
@@ -52,24 +54,25 @@ func process_slam_recovery(delta) -> void:
 	velocity.x = 0
 	velocity.y = -slam_speed
 	if ceiling_cast.is_colliding():
-		set_state(FOLLOWING)
+		set_state(process_following)
 
 func set_state(value) -> void:
-	state = value
-	match state:
-		RESTING:
-			pass
-		IDLE:
-			state_process = process_idle
-		FOLLOWING:
-			state_process = process_following
-		SLAM_ATTACK:
-			state_process = process_slam_attack
-		SLAM_RECOVERY:
-			state_process = process_slam_recovery
-		DEAD:
-			pass
+	state_process = value
+	
+	if state_process == process_slam_attack:
+		state_process = process_slam_attack
+		$hitbox/collision_shape_2d.disabled = false
+	else:
+		$hitbox/collision_shape_2d.disabled = true
 
 
 func _on_attack_cooldown_timeout():
-	set_state(SLAM_RECOVERY)
+	set_state(process_slam_recovery)
+
+
+func _on_hurtbox_hurt(hitbox, damage):
+	health -= damage
+	if health <= 0:
+		queue_free()
+	elif health <= 1:
+		pass

@@ -7,6 +7,9 @@ func _ready():
 		if child is DeadCultist:
 			child.attack_target = $player_place_holder
 			child.set_state(DeadCultist.FOLLOWING)
+		elif child is DemonBat:
+			child.attack_target = $player_place_holder
+			child.set_state(DemonBat.FOLLOWING)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

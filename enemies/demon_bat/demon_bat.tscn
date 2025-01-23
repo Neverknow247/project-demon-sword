@@ -1,9 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cggljalm4l6cb"]
+[gd_scene load_steps=8 format=3 uid="uid://cggljalm4l6cb"]
 
 [ext_resource type="Script" path="res://enemies/demon_bat/demon_bat.gd" id="1_gnsuf"]
 [ext_resource type="Texture2D" uid="uid://b00j486ve3rat" path="res://icon.svg" id="2_xhryq"]
+[ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_sbp0g"]
+[ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="4_7c13i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jf3xv"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bj2yv"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uv37m"]
 radius = 6.0
 
 [node name="demon_bat" type="CharacterBody2D"]
@@ -11,6 +19,7 @@ collision_layer = 8
 script = ExtResource("1_gnsuf")
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
+modulate = Color(0.56998, 0.490687, 1, 1)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_xhryq")
 
@@ -19,3 +28,21 @@ shape = SubResource("CircleShape2D_jf3xv")
 
 [node name="ceiling_cast" type="RayCast2D" parent="."]
 target_position = Vector2(0, -25)
+
+[node name="attack_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="hurtbox" parent="." instance=ExtResource("3_sbp0g")]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_bj2yv")
+
+[node name="hitbox" parent="." instance=ExtResource("4_7c13i")]
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_uv37m")
+disabled = true
+
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]

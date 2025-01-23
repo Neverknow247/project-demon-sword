@@ -2,14 +2,13 @@ extends CharacterBody2D
 
 class_name DeadCultist
 
-enum {
-	RESTING,
-	IDLE,
-	FOLLOWING,
-	ATTACKING,
-	DEAD
-}
-var state := IDLE
+#enum {
+	#RESTING,
+	#IDLE,
+	#FOLLOWING,
+	#ATTACKING,
+	#DEAD
+#}
 var state_process = process_idle
 
 @onready var ground_cast = $ground_cast
@@ -60,7 +59,7 @@ func process_following(delta:float) -> void:
 	animation_player.play("idle")
 	
 	if attack_target == null:
-		set_state(IDLE)
+		set_state(process_idle)
 		return
 	
 	if not idle_paused:
@@ -72,7 +71,7 @@ func process_following(delta:float) -> void:
 			var attack_target_distance = abs(attack_target.position.x - position.x)
 			
 			if attack_target_distance <= 8 and randi() % 8 == 0:
-				set_state(ATTACKING)
+				set_state(process_attack)
 				return
 			
 			var closest_neighbor_pos_x
@@ -98,24 +97,13 @@ func process_following(delta:float) -> void:
 		velocity.x = 0
 
 func _on_idle_timer_timeout():
-	if state == IDLE:
+	if state_process == process_idle:
 		idle_paused = not idle_paused
 		idle_timer.wait_time = randf_range(0.5, 2.0)
 		idle_timer.start()
 
 func set_state(value) -> void:
-	state = value
-	match state:
-		RESTING:
-			pass
-		IDLE:
-			state_process = process_idle
-		FOLLOWING:
-			state_process = process_following
-		ATTACKING:
-			state_process = process_attack
-		DEAD:
-			pass
+	state_process = value
 
 func set_flip(value) -> void:
 	$sprite.flip_h = value
@@ -126,8 +114,8 @@ func set_flip(value) -> void:
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if state == ATTACKING and anim_name == "attack":
-		set_state(FOLLOWING)
+	if state_process == process_attack and anim_name == "attack":
+		set_state(process_following)
 
 
 func _on_hurt_box_hurt(hitbox, damage):

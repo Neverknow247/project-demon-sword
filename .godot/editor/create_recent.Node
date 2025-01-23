@@ -1,2 +1,3 @@
-CollisionShape2D
 Timer
+CharacterBody2D
+CollisionShape2D

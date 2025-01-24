@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cggljalm4l6cb"]
 
 [ext_resource type="Script" path="res://enemies/demon_bat/demon_bat.gd" id="1_gnsuf"]
-[ext_resource type="Texture2D" uid="uid://b00j486ve3rat" path="res://icon.svg" id="2_xhryq"]
+[ext_resource type="Texture2D" uid="uid://cu8irvq0mf80h" path="res://enemies/demon_bat/demon_bat.png" id="3_ebxvj"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_sbp0g"]
 [ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="4_7c13i"]
 
@@ -19,9 +19,7 @@ collision_layer = 8
 script = ExtResource("1_gnsuf")
 
 [node name="sprite_2d" type="Sprite2D" parent="."]
-modulate = Color(0.56998, 0.490687, 1, 1)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_xhryq")
+texture = ExtResource("3_ebxvj")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jf3xv")

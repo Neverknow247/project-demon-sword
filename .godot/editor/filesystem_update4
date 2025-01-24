@@ -1,5 +1,9 @@
-res://delete_before_export/default_window.tscn
 res://enemies/enemy_test.tscn
+res://enemies/dead_cultist/dead_cultist.tscn
+res://delete_before_export/default_window.tscn
 res://enemies/demon_bat/demon_bat.tscn
-res://enemies/spirit/spirit.tscn
-res://enemies/spirit/spirit.gd
+res://enemies/eye/eye.tscn
+res://enemies/enemy_projectile.tscn
+res://enemies/eye/eye.gd
+res://enemies/enemy_test.gd
+res://enemies/enemy_projectile.gd

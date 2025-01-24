@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://cu8gil0c7qq0d"]
+[gd_scene load_steps=10 format=3 uid="uid://cu8gil0c7qq0d"]
 
 [ext_resource type="Script" path="res://enemies/enemy_test.gd" id="1_d3hmx"]
 [ext_resource type="PackedScene" uid="uid://d0hwat12i2kka" path="res://enemies/dead_cultist/dead_cultist.tscn" id="1_e5lfd"]
 [ext_resource type="Texture2D" uid="uid://b00j486ve3rat" path="res://icon.svg" id="2_3suxo"]
 [ext_resource type="PackedScene" uid="uid://cggljalm4l6cb" path="res://enemies/demon_bat/demon_bat.tscn" id="2_yfuty"]
+[ext_resource type="Texture2D" uid="uid://cu6jj82vhboum" path="res://player/player_placeholder.png" id="5_egckm"]
 [ext_resource type="Script" path="res://enemies/player_place_holder.gd" id="5_yjmav"]
+[ext_resource type="PackedScene" uid="uid://b0h1xp4g8bkig" path="res://enemies/eye/eye.tscn" id="7_7d77d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdds0"]
 size = Vector2(474.5, 78.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8lodb"]
-size = Vector2(8, 18)
+size = Vector2(21, 45)
 
 [node name="enemy_test" type="Node2D"]
 script = ExtResource("1_d3hmx")
@@ -22,7 +24,7 @@ position = Vector2(236.75, 38.75)
 shape = SubResource("RectangleShape2D_sdds0")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="static_body_2d"]
-position = Vector2(236.75, -177)
+position = Vector2(236.75, -226)
 shape = SubResource("RectangleShape2D_sdds0")
 
 [node name="Sprite2D" type="Sprite2D" parent="static_body_2d"]
@@ -31,7 +33,7 @@ scale = Vector2(3.72656, 0.625)
 texture = ExtResource("2_3suxo")
 
 [node name="Sprite2D2" type="Sprite2D" parent="static_body_2d"]
-position = Vector2(236.5, -177)
+position = Vector2(236.5, -226)
 scale = Vector2(3.72656, 0.625)
 texture = ExtResource("2_3suxo")
 
@@ -44,16 +46,23 @@ collision_layer = 2
 script = ExtResource("5_yjmav")
 
 [node name="sprite_2d" type="Sprite2D" parent="player_place_holder"]
+visible = false
 modulate = Color(0.416856, 1, 0.356665, 1)
 scale = Vector2(0.062822, 0.142949)
 texture = ExtResource("2_3suxo")
 
+[node name="sprite_2d2" type="Sprite2D" parent="player_place_holder"]
+modulate = Color(0.416856, 1, 0.356665, 1)
+position = Vector2(0, -17)
+texture = ExtResource("5_egckm")
+
 [node name="collision_shape_2d" type="CollisionShape2D" parent="player_place_holder"]
+position = Vector2(-6.5, -13.5)
 shape = SubResource("RectangleShape2D_8lodb")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(216, -47)
-zoom = Vector2(5.705, 5.705)
+position = Vector2(237, -96)
+zoom = Vector2(4, 4)
 
 [node name="dead_cultist" parent="." instance=ExtResource("1_e5lfd")]
 position = Vector2(203, -20)
@@ -72,3 +81,6 @@ position = Vector2(340, -32)
 
 [node name="dead_cultist6" parent="." instance=ExtResource("1_e5lfd")]
 position = Vector2(331, -7)
+
+[node name="eye" parent="." instance=ExtResource("7_7d77d")]
+position = Vector2(135, -86)

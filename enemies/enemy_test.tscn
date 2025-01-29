@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu8gil0c7qq0d"]
+[gd_scene load_steps=11 format=3 uid="uid://cu8gil0c7qq0d"]
 
 [ext_resource type="Script" path="res://enemies/enemy_test.gd" id="1_d3hmx"]
 [ext_resource type="PackedScene" uid="uid://d0hwat12i2kka" path="res://enemies/dead_cultist/dead_cultist.tscn" id="1_e5lfd"]
 [ext_resource type="Texture2D" uid="uid://b00j486ve3rat" path="res://icon.svg" id="2_3suxo"]
 [ext_resource type="PackedScene" uid="uid://cggljalm4l6cb" path="res://enemies/demon_bat/demon_bat.tscn" id="2_yfuty"]
+[ext_resource type="Texture2D" uid="uid://dn1w6yvnh66i0" path="res://particles/blood_splatter.png" id="3_bjalf"]
 [ext_resource type="Texture2D" uid="uid://cu6jj82vhboum" path="res://player/player_placeholder.png" id="5_egckm"]
 [ext_resource type="Script" path="res://enemies/player_place_holder.gd" id="5_yjmav"]
 [ext_resource type="PackedScene" uid="uid://b0h1xp4g8bkig" path="res://enemies/eye/eye.tscn" id="7_7d77d"]
@@ -28,9 +29,31 @@ position = Vector2(236.75, -226)
 shape = SubResource("RectangleShape2D_sdds0")
 
 [node name="Sprite2D" type="Sprite2D" parent="static_body_2d"]
+clip_children = 2
 position = Vector2(237, 39)
 scale = Vector2(3.72656, 0.625)
 texture = ExtResource("2_3suxo")
+
+[node name="sprite_2d_3" type="Sprite2D" parent="static_body_2d/Sprite2D"]
+modulate = Color(1, 0, 0.214379, 1)
+position = Vector2(-36.7631, -118.4)
+scale = Vector2(0.268344, 1.6)
+texture = ExtResource("2_3suxo")
+
+[node name="blood_splatter" type="Sprite2D" parent="static_body_2d/Sprite2D"]
+position = Vector2(-11.0021, -44.8)
+scale = Vector2(0.268344, 1.6)
+texture = ExtResource("3_bjalf")
+
+[node name="blood_splatter2" type="Sprite2D" parent="static_body_2d/Sprite2D"]
+position = Vector2(-7.24529, -52.8)
+scale = Vector2(0.268344, 1.6)
+texture = ExtResource("3_bjalf")
+
+[node name="blood_splatter3" type="Sprite2D" parent="static_body_2d/Sprite2D"]
+position = Vector2(-4.02516, -49.6)
+scale = Vector2(0.268344, 1.6)
+texture = ExtResource("3_bjalf")
 
 [node name="Sprite2D2" type="Sprite2D" parent="static_body_2d"]
 position = Vector2(236.5, -226)
@@ -84,3 +107,5 @@ position = Vector2(331, -7)
 
 [node name="eye" parent="." instance=ExtResource("7_7d77d")]
 position = Vector2(135, -86)
+in_wall_speed = 50.0
+follow_speed = 5.0

@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name DemonBat
 
 @export var speed = 50.0
-@export var slam_speed = 100.0
+@export var slam_speed = 150.0
 @export var health := 2
 
 @onready var ceiling_cast = $ceiling_cast
@@ -62,7 +62,9 @@ func set_state(value) -> void:
 	if state_process == process_slam_attack:
 		state_process = process_slam_attack
 		$hitbox/collision_shape_2d.disabled = false
+		$animation_player.play("slam")
 	else:
+		$animation_player.play("flying")
 		$hitbox/collision_shape_2d.disabled = true
 
 

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctc6l4df6ruki"]
+
+[ext_resource type="PackedScene" uid="uid://d3rwfid7qm5sl" path="res://player/player_depriciated.tscn" id="1_4rnra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2o307"]
+size = Vector2(1952, 20)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(956, 1038)
+shape = SubResource("RectangleShape2D_2o307")
+
+[node name="player_depriciated" parent="." instance=ExtResource("1_4rnra")]
+position = Vector2(158, 94)

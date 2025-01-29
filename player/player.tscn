@@ -1,0 +1,297 @@
+[gd_scene load_steps=19 format=3 uid="uid://dxgqrfkj0s7l1"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_pmbv3"]
+[ext_resource type="Texture2D" uid="uid://cyui7qi2eqyxu" path="res://assets/art/player/player.png" id="2_a3561"]
+[ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="3_27x4q"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6cqd"]
+radius = 17.0
+height = 58.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xpoot"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjp6l"]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpb41"]
+size = Vector2(16, 48)
+
+[sub_resource type="Animation" id="Animation_8sddv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite/ground_sword_hitbox_1:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite/air_sword_hitbox_1:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite/air_sword_hitbox_2:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_m0mv1"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_qj761"]
+resource_name = "jump"
+
+[sub_resource type="Animation" id="Animation_7kngp"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_suq5a"]
+resource_name = "sword_air_attack_1"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [30, 31, 32, 33]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite/air_sword_hitbox_1:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite/air_sword_hitbox_2:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_lceas"]
+resource_name = "sword_air_attack_2"
+
+[sub_resource type="Animation" id="Animation_dahv6"]
+resource_name = "sword_air_attack_3"
+
+[sub_resource type="Animation" id="Animation_tvdie"]
+resource_name = "sword_ground_attack_1"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite/ground_sword_hitbox_1:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_sj4va"]
+resource_name = "sword_ground_attack_2"
+
+[sub_resource type="Animation" id="Animation_ljwtr"]
+resource_name = "sword_ground_attack_3"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7icp"]
+_data = {
+"RESET": SubResource("Animation_8sddv"),
+"idle": SubResource("Animation_m0mv1"),
+"jump": SubResource("Animation_qj761"),
+"run": SubResource("Animation_7kngp"),
+"sword_air_attack_1": SubResource("Animation_suq5a"),
+"sword_air_attack_2": SubResource("Animation_lceas"),
+"sword_air_attack_3": SubResource("Animation_dahv6"),
+"sword_ground_attack_1": SubResource("Animation_tvdie"),
+"sword_ground_attack_2": SubResource("Animation_sj4va"),
+"sword_ground_attack_3": SubResource("Animation_ljwtr")
+}
+
+[node name="player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_pmbv3")
+
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("2_a3561")
+hframes = 5
+vframes = 7
+
+[node name="ground_sword_hitbox_1" parent="sprite" instance=ExtResource("3_27x4q")]
+collision_mask = 16
+monitoring = false
+damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprite/ground_sword_hitbox_1"]
+position = Vector2(37, 9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_s6cqd")
+
+[node name="air_sword_hitbox_1" parent="sprite" instance=ExtResource("3_27x4q")]
+collision_mask = 16
+monitoring = false
+damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprite/air_sword_hitbox_1"]
+position = Vector2(22, 1)
+shape = SubResource("CircleShape2D_xpoot")
+
+[node name="air_sword_hitbox_2" parent="sprite" instance=ExtResource("3_27x4q")]
+collision_mask = 16
+monitoring = false
+damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprite/air_sword_hitbox_2"]
+position = Vector2(-22, 1)
+shape = SubResource("CircleShape2D_fjp6l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+color = Color(2.40654e-07, 0.360408, 0.3487, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_cpb41")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d7icp")
+}
+autoplay = "idle"
+
+[node name="coyote_jump_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="coyote_wall_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+one_shot = true
+
+[node name="jump_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.3
+one_shot = true
+
+[node name="jump_buffer_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.02
+one_shot = true
+
+[node name="drop_timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -40)
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.05
+drag_bottom_margin = 0.0
+
+[connection signal="timeout" from="jump_timer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="jump_buffer_timer" to="." method="_on_jump_buffer_timer_timeout"]
+[connection signal="timeout" from="drop_timer" to="." method="_on_drop_timer_timeout"]

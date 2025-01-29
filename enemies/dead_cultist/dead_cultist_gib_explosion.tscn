@@ -1,0 +1,132 @@
+[gd_scene load_steps=15 format=3 uid="uid://c32dsujtpi732"]
+
+[ext_resource type="Script" path="res://enemies/gib_explosion.gd" id="1_7u34t"]
+[ext_resource type="Texture2D" uid="uid://cpwa5sfedt4f5" path="res://assets/art/enemies/dead_cultist/head.png" id="2_7pue3"]
+[ext_resource type="PackedScene" uid="uid://cqv6wjgjliwma" path="res://enemies/gib.tscn" id="2_c1ytq"]
+[ext_resource type="Texture2D" uid="uid://2d21gq7ifi6" path="res://assets/art/enemies/dead_cultist/left_arm.png" id="3_ul5fd"]
+[ext_resource type="Texture2D" uid="uid://bl13ehypak73e" path="res://assets/art/enemies/dead_cultist/right_arm.png" id="4_ggvrv"]
+[ext_resource type="Texture2D" uid="uid://dq30ncaak08rk" path="res://assets/art/enemies/dead_cultist/right_leg.png" id="5_debwq"]
+[ext_resource type="Texture2D" uid="uid://bnq0xrnhjqf47" path="res://assets/art/enemies/dead_cultist/left_leg.png" id="6_so2gu"]
+[ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="7_capot"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ddehg"]
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_460gl"]
+size = Vector2(3, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ux1j4"]
+size = Vector2(3, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ybnm1"]
+size = Vector2(5, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0o4l"]
+size = Vector2(4, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_plngd"]
+radius = 2.0
+
+[node name="dead_cultist_gib_explosion" type="Node2D"]
+script = ExtResource("1_7u34t")
+
+[node name="gib" parent="." instance=ExtResource("2_c1ytq")]
+
+[node name="head" type="Sprite2D" parent="gib"]
+texture = ExtResource("2_7pue3")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib"]
+shape = SubResource("CircleShape2D_ddehg")
+
+[node name="gib2" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(-6, -24)
+
+[node name="left_arm" type="Sprite2D" parent="gib2"]
+texture = ExtResource("3_ul5fd")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib2"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_460gl")
+
+[node name="gib3" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(7, -24)
+
+[node name="right_arm" type="Sprite2D" parent="gib3"]
+texture = ExtResource("4_ggvrv")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib3"]
+shape = SubResource("RectangleShape2D_ux1j4")
+
+[node name="gib4" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(4, -7)
+
+[node name="right_leg" type="Sprite2D" parent="gib4"]
+texture = ExtResource("5_debwq")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib4"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_ybnm1")
+
+[node name="gib5" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(-5, -7)
+
+[node name="left_leg" type="Sprite2D" parent="gib5"]
+texture = ExtResource("6_so2gu")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib5"]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_x0o4l")
+
+[node name="gib6" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(-2, -15)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib6"]
+texture = ExtResource("7_capot")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib6"]
+shape = SubResource("CircleShape2D_plngd")
+
+[node name="gib7" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(2, -16)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib7"]
+texture = ExtResource("7_capot")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib7"]
+shape = SubResource("CircleShape2D_plngd")
+
+[node name="gib8" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(-1, -20)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib8"]
+texture = ExtResource("7_capot")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib8"]
+shape = SubResource("CircleShape2D_plngd")
+
+[node name="gib9" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(3, -24)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib9"]
+texture = ExtResource("7_capot")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib9"]
+shape = SubResource("CircleShape2D_plngd")
+
+[node name="gib10" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(-2, -26)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib10"]
+texture = ExtResource("7_capot")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib10"]
+shape = SubResource("CircleShape2D_plngd")
+
+[node name="gib11" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(1, -29)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib11"]
+texture = ExtResource("7_capot")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib11"]
+shape = SubResource("CircleShape2D_plngd")

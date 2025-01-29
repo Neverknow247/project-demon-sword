@@ -5,10 +5,10 @@ extends Node2D
 func _ready():
 	for child in get_children():
 		if child is DeadCultist or child is DemonBat:
-			child.attack_target = $player_place_holder
+			child.attack_target = $player
 			child.set_state(child.process_following)
 		elif child is Eye:
-			child.attack_target = $player_place_holder
+			child.attack_target = $player
 			child.set_state(child.process_attack)
 
 

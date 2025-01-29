@@ -1,19 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu8gil0c7qq0d"]
+[gd_scene load_steps=9 format=3 uid="uid://cu8gil0c7qq0d"]
 
 [ext_resource type="Script" path="res://enemies/enemy_test.gd" id="1_d3hmx"]
 [ext_resource type="PackedScene" uid="uid://d0hwat12i2kka" path="res://enemies/dead_cultist/dead_cultist.tscn" id="1_e5lfd"]
 [ext_resource type="Texture2D" uid="uid://b00j486ve3rat" path="res://icon.svg" id="2_3suxo"]
-[ext_resource type="PackedScene" uid="uid://cggljalm4l6cb" path="res://enemies/demon_bat/demon_bat.tscn" id="2_yfuty"]
-[ext_resource type="Texture2D" uid="uid://dn1w6yvnh66i0" path="res://particles/blood_splatter.png" id="3_bjalf"]
-[ext_resource type="Texture2D" uid="uid://cu6jj82vhboum" path="res://player/player_placeholder.png" id="5_egckm"]
-[ext_resource type="Script" path="res://enemies/player_place_holder.gd" id="5_yjmav"]
+[ext_resource type="PackedScene" uid="uid://cggljalm4l6cb" path="res://assets/art/enemies/demon_bat/demon_bat.tscn" id="2_yfuty"]
+[ext_resource type="Texture2D" uid="uid://dn1w6yvnh66i0" path="res://assets/art/effects/blood_splatter.png" id="3_bjalf"]
 [ext_resource type="PackedScene" uid="uid://b0h1xp4g8bkig" path="res://enemies/eye/eye.tscn" id="7_7d77d"]
+[ext_resource type="PackedScene" uid="uid://dxgqrfkj0s7l1" path="res://player/player.tscn" id="9_7go5g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdds0"]
 size = Vector2(474.5, 78.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8lodb"]
-size = Vector2(21, 45)
 
 [node name="enemy_test" type="Node2D"]
 script = ExtResource("1_d3hmx")
@@ -46,7 +42,7 @@ scale = Vector2(0.268344, 1.6)
 texture = ExtResource("3_bjalf")
 
 [node name="blood_splatter2" type="Sprite2D" parent="static_body_2d/Sprite2D"]
-position = Vector2(-7.24529, -52.8)
+position = Vector2(1.61007, -49.6)
 scale = Vector2(0.268344, 1.6)
 texture = ExtResource("3_bjalf")
 
@@ -62,26 +58,6 @@ texture = ExtResource("2_3suxo")
 
 [node name="demon_bat" parent="." instance=ExtResource("2_yfuty")]
 position = Vector2(92, -131)
-
-[node name="player_place_holder" type="CharacterBody2D" parent="."]
-position = Vector2(257, -13)
-collision_layer = 2
-script = ExtResource("5_yjmav")
-
-[node name="sprite_2d" type="Sprite2D" parent="player_place_holder"]
-visible = false
-modulate = Color(0.416856, 1, 0.356665, 1)
-scale = Vector2(0.062822, 0.142949)
-texture = ExtResource("2_3suxo")
-
-[node name="sprite_2d2" type="Sprite2D" parent="player_place_holder"]
-modulate = Color(0.416856, 1, 0.356665, 1)
-position = Vector2(0, -17)
-texture = ExtResource("5_egckm")
-
-[node name="collision_shape_2d" type="CollisionShape2D" parent="player_place_holder"]
-position = Vector2(-6.5, -13.5)
-shape = SubResource("RectangleShape2D_8lodb")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(237, -96)
@@ -109,3 +85,6 @@ position = Vector2(331, -7)
 position = Vector2(135, -86)
 in_wall_speed = 50.0
 follow_speed = 5.0
+
+[node name="player" parent="." instance=ExtResource("9_7go5g")]
+position = Vector2(269, -4)

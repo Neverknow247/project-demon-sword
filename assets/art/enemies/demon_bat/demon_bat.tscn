@@ -1,0 +1,136 @@
+[gd_scene load_steps=13 format=3 uid="uid://cggljalm4l6cb"]
+
+[ext_resource type="Script" path="res://enemies/demon_bat/demon_bat.gd" id="1_gnsuf"]
+[ext_resource type="Texture2D" uid="uid://cu8irvq0mf80h" path="res://assets/art/enemies/demon_bat/demon_bat.png" id="3_ebxvj"]
+[ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_sbp0g"]
+[ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="4_7c13i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jf3xv"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bj2yv"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uv37m"]
+radius = 15.0333
+
+[sub_resource type="Animation" id="Animation_88wau"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_gub1u"]
+resource_name = "flying"
+length = 0.500004
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_0x8m7"]
+resource_name = "slam"
+length = 0.166671
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_m030v"]
+resource_name = "hurt"
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a5b3p"]
+_data = {
+"RESET": SubResource("Animation_88wau"),
+"flying": SubResource("Animation_gub1u"),
+"hurt": SubResource("Animation_m030v"),
+"slam": SubResource("Animation_0x8m7")
+}
+
+[node name="demon_bat" type="CharacterBody2D"]
+position = Vector2(-1, 0)
+collision_layer = 8
+script = ExtResource("1_gnsuf")
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("3_ebxvj")
+hframes = 4
+vframes = 2
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_jf3xv")
+
+[node name="ceiling_cast" type="RayCast2D" parent="."]
+visible = false
+target_position = Vector2(0, -25)
+
+[node name="attack_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="hurtbox" parent="." instance=ExtResource("3_sbp0g")]
+visible = false
+position = Vector2(0, 7)
+collision_layer = 16
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_bj2yv")
+
+[node name="hitbox" parent="." instance=ExtResource("4_7c13i")]
+visible = false
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_uv37m")
+disabled = true
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a5b3p")
+}
+autoplay = "flying"
+
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]

@@ -1,12 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://byu7ulxooo5hi"]
+[gd_scene load_steps=6 format=3 uid="uid://byu7ulxooo5hi"]
 
 [ext_resource type="Script" path="res://delete_before_export/default_window.gd" id="1_77bym"]
+[ext_resource type="PackedScene" uid="uid://dxgqrfkj0s7l1" path="res://player/player.tscn" id="2_l5x4h"]
+[ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_n7se2"]
 
-[node name="default_window" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hte4v"]
+size = Vector2(1921, 46)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqkyp"]
+radius = 22.0
+
+[node name="default_window" type="Node2D"]
 script = ExtResource("1_77bym")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(3, 1033)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(959, 23)
+shape = SubResource("RectangleShape2D_hte4v")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_right = 1921.0
+offset_bottom = 40.0
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(0, 776)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(960, 17)
+shape = SubResource("RectangleShape2D_hte4v")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+offset_right = 1921.0
+offset_bottom = 40.0
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(651, -169)
+rotation = 1.5708
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(962, 16.9999)
+shape = SubResource("RectangleShape2D_hte4v")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_right = 1921.0
+offset_bottom = 40.0
+
+[node name="player" parent="." instance=ExtResource("2_l5x4h")]
+position = Vector2(197, 1026)
+
+[node name="hurtbox" parent="." instance=ExtResource("3_n7se2")]
+position = Vector2(343, 1006)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_kqkyp")
+
+[connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]

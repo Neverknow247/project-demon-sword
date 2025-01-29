@@ -48,8 +48,13 @@ func process_idle(delta:float) -> void:
 	else:
 		velocity.x = 0
 	
+	updated_sprite_direction()
+
+func updated_sprite_direction() -> void:
 	if velocity.x > 0:
-		pass
+		$sprite.flip_h = false
+	elif velocity.x < 0:
+		$sprite.flip_h = true
 
 func process_attack(delta:float) -> void:
 	animation_player.play("attack")
@@ -95,6 +100,8 @@ func process_following(delta:float) -> void:
 		ground_cast.position.x = 7 * attack_target_direction
 	else:
 		velocity.x = 0
+	
+	updated_sprite_direction()
 
 func _on_idle_timer_timeout():
 	if state_process == process_idle:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cggljalm4l6cb"]
+[gd_scene load_steps=15 format=3 uid="uid://cggljalm4l6cb"]
 
 [ext_resource type="Script" path="res://enemies/demon_bat/demon_bat.gd" id="1_gnsuf"]
 [ext_resource type="Texture2D" uid="uid://cu8irvq0mf80h" path="res://assets/art/enemies/demon_bat/demon_bat.png" id="3_ebxvj"]
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [4]
 }
 
 [sub_resource type="Animation" id="Animation_gub1u"]
@@ -81,13 +81,34 @@ tracks/0/keys = {
 "values": [5, 6]
 }
 
+[sub_resource type="Animation" id="Animation_te4ho"]
+resource_name = "sleep"
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a5b3p"]
 _data = {
 "RESET": SubResource("Animation_88wau"),
 "flying": SubResource("Animation_gub1u"),
 "hurt": SubResource("Animation_m030v"),
-"slam": SubResource("Animation_0x8m7")
+"slam": SubResource("Animation_0x8m7"),
+"sleep": SubResource("Animation_te4ho")
 }
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i87ye"]
+radius = 85.0
+height = 192.0
 
 [node name="demon_bat" type="CharacterBody2D"]
 position = Vector2(-1, 0)
@@ -98,6 +119,7 @@ script = ExtResource("1_gnsuf")
 texture = ExtResource("3_ebxvj")
 hframes = 4
 vframes = 2
+frame = 4
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="."]
 visible = false
@@ -130,7 +152,17 @@ disabled = true
 libraries = {
 "": SubResource("AnimationLibrary_a5b3p")
 }
-autoplay = "flying"
+autoplay = "sleep"
+
+[node name="detection_area" type="Area2D" parent="."]
+rotation = 1.5708
+collision_layer = 0
+collision_mask = 2
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(35, -1)
+shape = SubResource("CapsuleShape2D_i87ye")
 
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

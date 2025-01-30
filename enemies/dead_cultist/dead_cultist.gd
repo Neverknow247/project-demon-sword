@@ -9,18 +9,27 @@ class_name DeadCultist
 	#ATTACKING,
 	#DEAD
 #}
-var state_process = process_idle
+var state_process = process_sleep
 
 @onready var ground_cast = $ground_cast
 @onready var idle_timer = $idle_timer
 @onready var animation_player = $animation_player
 @onready var boid_area = $boid_area
 @onready var hurt_box = $hurt_box
+@onready var hurt_box_collision_shape = $hurt_box/collision_shape_2D
+@onready var detection_area = $detection_area
 
 #@onready var idle_timer = 
 
 @export var speed = 40.0
 @export var health := 3.0
+@export var gravity := 90.0
+@export var detect_player := true:
+	set(value):
+		detect_player = value
+		if detect_player and detection_area.get_overlapping_bodies().size() > 0:
+			attack_target = detection_area.get_overlapping_bodies()[0]
+			state_process = process_following
 
 var idle_direction := -1
 var idle_paused := false
@@ -30,14 +39,10 @@ var attack_target = null
 const ATTACK_DISTANCE := 32
 
 func _ready() -> void:
-	pass
+	set_state(process_sleep)
 
 func _physics_process(delta):
 	state_process.call(delta)
-	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 	
 	move_and_slide()
 
@@ -55,6 +60,8 @@ func process_idle(delta:float) -> void:
 	else:
 		animation_player.play("run")
 	
+	velocity.y += gravity * delta
+	
 	updated_sprite_direction()
 
 func updated_sprite_direction() -> void:
@@ -66,6 +73,7 @@ func updated_sprite_direction() -> void:
 func process_attack(delta:float) -> void:
 	animation_player.play("attack")
 	velocity.x = 0
+	velocity.y += gravity * delta
 
 func process_following(delta:float) -> void:
 	if attack_target == null:
@@ -106,6 +114,8 @@ func process_following(delta:float) -> void:
 	else:
 		velocity.x = 0
 	
+	velocity.y += gravity * delta
+	
 	if velocity.x == 0:
 		animation_player.play("idle")
 	else:
@@ -114,7 +124,12 @@ func process_following(delta:float) -> void:
 	updated_sprite_direction()
 
 func process_stunned(delta: float) -> void:
+	velocity = Vector2.ZERO
+
+func process_sleep(delta) -> void:
+	animation_player.play("sleep")
 	velocity.x = 0
+	velocity.y += gravity * delta
 
 func _on_idle_timer_timeout():
 	if state_process == process_idle:
@@ -124,6 +139,8 @@ func _on_idle_timer_timeout():
 
 func set_state(value) -> void:
 	state_process = value
+	
+	hurt_box_collision_shape.set_deferred("disabled", state_process == process_sleep)
 
 func set_flip(value) -> void:
 	$sprite.flip_h = value
@@ -163,3 +180,10 @@ func _on_hurt_box_hurt(hitbox, damage):
 		queue_free()
 	else:
 		pass
+
+
+func _on_detection_area_body_entered(body):
+	if detect_player:
+		attack_target = body
+		set_state(process_following)
+		state_process = process_following

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://delete_before_export/default_window.gd" id="1_77bym"]
 [ext_resource type="PackedScene" uid="uid://dxgqrfkj0s7l1" path="res://player/player.tscn" id="2_l5x4h"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_n7se2"]
-[ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="4_fnqmg"]
+[ext_resource type="PackedScene" path="res://tilesets/ground_layer_1.tscn" id="4_fnqmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hte4v"]
 size = Vector2(1921, 46)

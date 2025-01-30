@@ -2,6 +2,13 @@ extends CharacterBody2D
 
 var rng = RandomNumberGenerator.new()
 
+const sword_arm_sprite = preload("res://assets/art/player/player_sword_arm.png")
+#const cannon_arm_sprite = preload()
+#const spear_legs_sprite = preload()
+const right_arm_sprite = preload("res://assets/art/player/player_right_arm.png")
+const left_arm_sprite = preload("res://assets/art/player/player_left_arm.png")
+const legs_sprite = preload("res://assets/art/player/player_legs.png")
+
 var current_velocity = 0.0
 @export var default_max_velocity = 220
 @export var max_velocity : float = 220.0
@@ -24,7 +31,12 @@ var current_velocity = 0.0
 #@export var wall_slide_speed = 0
 @export var wall_slide_bonus = .1
 
-@onready var sprite = $sprite
+@onready var sprites = $sprites
+@onready var player_left_arm = $sprites/player_left_arm
+@onready var player_legs = $sprites/player_legs
+@onready var player_head = $sprites/player_head
+@onready var player_torso = $sprites/player_torso
+@onready var player_right_arm = $sprites/player_right_arm
 @onready var animation_player = $AnimationPlayer
 
 @onready var coyote_jump_timer = $coyote_jump_timer
@@ -41,14 +53,24 @@ var damages = []
 var last_facing = 1
 var sword_action_pressed = false
 var sword_action_number = 0
+@export var sword_arm_unlocked = false
+@export var cannon_arm_unlocked = false
+@export var spear_legs_unlocked = false
 
 func _ready():
 	rng.randomize()
+	check_sword_arm_unlocked()
 
 func _physics_process(delta):
 	current_velocity = abs(velocity.x)
 	var callable = Callable(self,state)
 	callable.call(delta)
+
+func check_sword_arm_unlocked():
+	if sword_arm_unlocked:
+		player_right_arm.texture = sword_arm_sprite
+	else:
+		player_right_arm.texture = right_arm_sprite
 
 func move_state(delta):
 	sword_action_pressed = false
@@ -139,6 +161,8 @@ func drop_check():
 		drop_timer.start()
 
 func sword_check():
+	if !sword_arm_unlocked:
+		return
 	if Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword"):
 		sword_action_number += 1
 		if is_on_floor():
@@ -158,17 +182,29 @@ func update_animations(input_vector):
 	var facing = input_vector
 	if facing != 0:
 		last_facing = facing
-		sprite.flip_h = facing != 1
-		$sprite/ground_sword_hitbox_1.scale.x = facing
-		$sprite/air_sword_hitbox_1.scale.x = facing
-		$sprite/air_sword_hitbox_2.scale.x = facing
+		player_left_arm.flip_h = facing != 1
+		player_legs.flip_h = facing != 1
+		player_head.flip_h = facing != 1
+		player_torso.flip_h = facing != 1
+		player_right_arm.flip_h = facing != 1
+		$sprites/ground_sword_hitbox_1.scale.x = facing
+		$sprites/air_sword_hitbox_1.scale.x = facing
+		$sprites/air_sword_hitbox_2.scale.x = facing
 		$Camera2D.drag_horizontal_offset = float(facing/20.0)
 	if not is_on_floor():
 		animation_player.stop()
 		if velocity.y <= 0:
-			sprite.frame = 25
+			player_left_arm.frame = 10
+			player_legs.frame = 10
+			player_head.frame = 10
+			player_torso.frame = 10
+			player_right_arm.frame = 10
 		else:
-			sprite.frame = 26
+			player_left_arm.frame = 11
+			player_legs.frame = 11
+			player_head.frame = 11
+			player_torso.frame = 11
+			player_right_arm.frame = 11
 	elif input_vector != 0:
 		animation_player.play("run")
 	else:
@@ -188,7 +224,11 @@ func wall_state(delta):
 	#animation_player.stop()
 	var wall_normal = sign(get_wall_normal().x)
 	if wall_normal != 0:
-		sprite.flip_h = wall_normal != 1
+		player_left_arm.flip_h = wall_normal != 1
+		player_legs.flip_h = wall_normal != 1
+		player_head.flip_h = wall_normal != 1
+		player_torso.flip_h = wall_normal != 1
+		player_right_arm.flip_h = wall_normal != 1
 	if velocity.y <= 0:
 		pass
 		#sprite.frame = up_frame

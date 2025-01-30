@@ -77,7 +77,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"teleport"
 }]
-}
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true

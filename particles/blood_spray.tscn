@@ -1,0 +1,131 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbsgshmy7qqs6"]
+
+[ext_resource type="Texture2D" uid="uid://diev0kbhjbnkk" path="res://assets/art/effects/blood_spray.png" id="1_y1scd"]
+[ext_resource type="Script" path="res://particles/blood_spray.gd" id="2_ctk71"]
+[ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="3_w7w4p"]
+
+[sub_resource type="Gradient" id="Gradient_pok8y"]
+offsets = PackedFloat32Array(0, 0.815642, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o56js"]
+gradient = SubResource("Gradient_pok8y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o8y4a"]
+particle_flag_disable_z = true
+initial_velocity_min = 24.69
+initial_velocity_max = 156.39
+gravity = Vector3(0, 40, 0)
+color_ramp = SubResource("GradientTexture1D_o56js")
+hue_variation_min = -0.1
+hue_variation_max = 0.03
+
+[sub_resource type="Animation" id="Animation_ol5tl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../gpu_particles_2d:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_cvq4w"]
+resource_name = "default"
+length = 0.333338
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../gpu_particles_2d:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kklly"]
+_data = {
+"RESET": SubResource("Animation_ol5tl"),
+"default": SubResource("Animation_cvq4w")
+}
+
+[node name="blood_spray" type="Node2D"]
+script = ExtResource("2_ctk71")
+
+[node name="gpu_particles_2d" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_o8y4a")
+texture = ExtResource("3_w7w4p")
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.78
+
+[node name="blood_spray" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+texture = ExtResource("1_y1scd")
+hframes = 4
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+root_node = NodePath("../blood_spray")
+libraries = {
+"": SubResource("AnimationLibrary_kklly")
+}
+autoplay = "default"
+
+[connection signal="animation_finished" from="animation_player" to="." method="_on_animation_player_animation_finished"]

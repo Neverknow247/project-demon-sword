@@ -11,7 +11,8 @@ var attack_target = null
 @export var shots_before_teleport := 1
 @export var shot_cooldown_time := 1.0
 @export var bullet_speed := 100.0
-@export var speed := 50.0
+@export var in_wall_speed := 50.0
+@export var follow_speed := 50.0
 
 @export var health := 1
 
@@ -26,13 +27,16 @@ func process_idle(delta) -> void:
 
 func process_attack(delta) -> void:
 	if get_overlapping_bodies().size() > 0:
-		position += (attack_target.position - position).normalized() * speed * delta
-	elif shot_cooldown.is_stopped():
-		if shots_fired < shots_before_teleport:
-			shoot()
-		else:
-			set_state(process_teleport)
-		#shoot()
+		position += (attack_target.position - position).normalized() * in_wall_speed * delta
+	else:
+		position -= (attack_target.position - position).normalized() * follow_speed * delta
+		if shot_cooldown.is_stopped():
+			if shots_fired < shots_before_teleport:
+				shoot()
+			else:
+				set_state(process_teleport)
+			#shoot()
+	
 
 func process_teleport(delta) -> void:
 	pass
@@ -52,11 +56,13 @@ func set_state(value) -> void:
 	state_process = value
 	if state_process == process_attack:
 		shots_fired = 0
+		animation_player.play("idle")
 		#shoot()
 	elif state_process == process_teleport:
 		animation_player.play("teleport")
 	else:
 		shot_cooldown.stop()
+		animation_player.play("idle")
 
 
 func _on_shot_cooldown_timeout():

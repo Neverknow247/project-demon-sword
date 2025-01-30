@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0hwat12i2kka"]
+[gd_scene load_steps=16 format=3 uid="uid://d0hwat12i2kka"]
 
 [ext_resource type="Script" path="res://enemies/dead_cultist/dead_cultist.gd" id="1_fycvj"]
-[ext_resource type="Texture2D" uid="uid://cu6jj82vhboum" path="res://player/player_placeholder.png" id="2_t0pjw"]
+[ext_resource type="Texture2D" uid="uid://csb8ya7so37jv" path="res://assets/art/enemies/dead_cultist/cultist.png" id="2_tj06d"]
+[ext_resource type="Texture2D" uid="uid://bgao6uc80hli5" path="res://assets/art/enemies/dead_cultist/cultist_blood.png" id="3_i2quf"]
 [ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="3_r8rsg"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="4_51765"]
 
@@ -9,7 +10,7 @@
 radius = 13.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyql6"]
-size = Vector2(8, 2)
+size = Vector2(16, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uj0lm"]
 size = Vector2(30, 49)
@@ -31,18 +32,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:modulate")
+tracks/1/path = NodePath("sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [4]
 }
 
 [sub_resource type="Animation" id="Animation_3oc7f"]
 resource_name = "attack"
+length = 0.733337
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -50,7 +52,7 @@ tracks/0/path = NodePath("flip_helper/hit_box/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.433333, 0.833333),
+"times": PackedFloat32Array(0, 0.433333, 0.733333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -58,14 +60,30 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:modulate")
+tracks/1/path = NodePath("sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_7bh2s"]
+resource_name = "hurt"
+length = 0.133337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 1, 0.0797672, 1)]
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_c6bl8"]
@@ -73,35 +91,63 @@ resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:modulate")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_tylt6"]
+resource_name = "run"
+length = 0.666671
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 5]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_23u6s"]
 _data = {
 "RESET": SubResource("Animation_faexn"),
 "attack": SubResource("Animation_3oc7f"),
-"idle": SubResource("Animation_c6bl8")
+"hurt": SubResource("Animation_7bh2s"),
+"idle": SubResource("Animation_c6bl8"),
+"run": SubResource("Animation_tylt6")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgpfr"]
-size = Vector2(16, 49)
+size = Vector2(16, 46)
 
 [node name="dead_cultist" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_fycvj")
 
 [node name="sprite" type="Sprite2D" parent="."]
-position = Vector2(8.9407e-08, -30)
-texture = ExtResource("2_t0pjw")
-hframes = 2
-frame = 1
+position = Vector2(8.9407e-08, -24)
+texture = ExtResource("2_tj06d")
+hframes = 4
+vframes = 3
+frame = 4
+
+[node name="sprite2" type="Sprite2D" parent="."]
+position = Vector2(8.9407e-08, -24)
+texture = ExtResource("3_i2quf")
+hframes = 4
+vframes = 3
+frame = 4
 
 [node name="flip_helper" type="Node2D" parent="."]
 
@@ -114,10 +160,12 @@ shape = SubResource("CircleShape2D_3o2sy")
 disabled = true
 
 [node name="collision_shape_2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+visible = false
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_fyql6")
 
 [node name="ground_cast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(-8, -13)
 target_position = Vector2(0, 18)
 
@@ -126,6 +174,7 @@ one_shot = true
 autostart = true
 
 [node name="boid_area" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 8
@@ -140,10 +189,10 @@ libraries = {
 }
 
 [node name="hurt_box" parent="." instance=ExtResource("4_51765")]
+position = Vector2(-1, -23)
 collision_layer = 16
 
 [node name="collision_shape_2D" type="CollisionShape2D" parent="hurt_box"]
-position = Vector2(-1, -24.5)
 shape = SubResource("RectangleShape2D_fgpfr")
 
 [connection signal="timeout" from="idle_timer" to="." method="_on_idle_timer_timeout"]

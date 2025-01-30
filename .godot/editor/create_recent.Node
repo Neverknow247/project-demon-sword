@@ -1,6 +1,12 @@
-CollisionShape2D
-Area2D
+RayCast2D
+GPUParticles2D
 AnimationPlayer
-Timer
+CollisionPolygon2D
 Sprite2D
+StaticBody2D
+Timer
+CollisionShape2D
+RigidBody2D
+Area2D
+Node2D
 CharacterBody2D

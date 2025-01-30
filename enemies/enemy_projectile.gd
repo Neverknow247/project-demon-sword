@@ -5,6 +5,7 @@ extends Area2D
 var velocity = Vector2.ZERO
 
 func _physics_process(delta):
+	rotation = velocity.angle()
 	position += velocity * delta
 
 func _on_area_entered(hurtbox):

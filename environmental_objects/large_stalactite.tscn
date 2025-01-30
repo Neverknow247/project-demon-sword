@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3 uid="uid://cy2o4cgt1veei"]
+
+[ext_resource type="Script" path="res://environmental_objects/large_stalactite.gd" id="1_4b5j4"]
+[ext_resource type="Texture2D" uid="uid://dfckla81c5pgg" path="res://assets/art/environment/large_stalactite.png" id="1_l2he1"]
+[ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_w70le"]
+
+[sub_resource type="Curve" id="Curve_kj630"]
+_data = [Vector2(0, 1), 0.0, -0.272967, 0, 0, Vector2(0.995169, 0), -3.6128, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_634lw"]
+curve = SubResource("Curve_kj630")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_plj81"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 31.8
+direction = Vector3(0, 1, 0)
+spread = 22.753
+initial_velocity_min = 57.61
+initial_velocity_max = 176.96
+gravity = Vector3(0, 98, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_634lw")
+
+[sub_resource type="Animation" id="Animation_yp2ep"]
+resource_name = "shake"
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0416667, 0.0833333, 0.125, 0.166667, 0.208333, 0.25, 0.291667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-2, 0), Vector2(0, 0), Vector2(2, 0), Vector2(0, 0), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(3.57628e-08, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gpu_particles_2d:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.375),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7o7ei"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gpu_particles_2d:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7seya"]
+_data = {
+"RESET": SubResource("Animation_7o7ei"),
+"shake": SubResource("Animation_yp2ep")
+}
+
+[node name="large_stalactite" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_4b5j4")
+
+[node name="gpu_particles_2d" type="GPUParticles2D" parent="."]
+modulate = Color(0.558594, 0.256497, 0.119699, 1)
+position = Vector2(0, -34)
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_plj81")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.29
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture = ExtResource("1_l2he1")
+
+[node name="collision_polygon_2d" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(31, -64, -30, -64, -31, -45, 0, 63, 31, -54)
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7seya")
+}
+
+[node name="hurtbox" parent="." instance=ExtResource("3_w70le")]
+collision_layer = 16
+
+[node name="collision_polygon_2d" type="CollisionPolygon2D" parent="hurtbox"]
+visible = false
+polygon = PackedVector2Array(31, -64, -30, -64, -31, -45, -1, 63, 2, 63, 31, -54)
+
+[node name="ground_cast" type="RayCast2D" parent="."]
+position = Vector2(0, 15)
+target_position = Vector2(0, 34)
+
+[connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]

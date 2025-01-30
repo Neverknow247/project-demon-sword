@@ -1,3 +1,7 @@
+res://levels
+res://door_connections
+res://items
+res://doors
 res://environmental_objects
 res://enemies
 res://enemies/dead_cultist

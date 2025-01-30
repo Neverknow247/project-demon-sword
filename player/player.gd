@@ -113,6 +113,10 @@ func get_input_axis():
 		input_axis = Input.get_axis("c_left","c_right")
 	if Input.get_axis("left","right") != 0:
 		input_axis = Input.get_axis("left","right")
+	if input_axis > .25:
+		input_axis = 1
+	elif input_axis < -.25:
+		input_axis = -1
 	return signi(input_axis)
 
 func is_moving(input_axis):
@@ -164,7 +168,7 @@ func sword_check():
 	if !sword_arm_unlocked:
 		return
 	if Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword"):
-		sword_action_number += 1
+		#sword_action_number += 1
 		if is_on_floor():
 			animation_player.play("sword_ground_attack_1")
 		else:
@@ -273,9 +277,9 @@ func sword_state(delta):
 	apply_gravity(delta)
 	apply_friction(delta)
 	move_and_slide()
-	if (Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword")) and sword_action_pressed == false:
-		sword_action_pressed = true
-		sword_action_number += 1
+	#if (Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword")) and sword_action_pressed == false:
+		#sword_action_pressed = true
+		#sword_action_number += 1
 	if not animation_player.is_playing():
 		state = "move_state"
 		#This code is if I can animate combos

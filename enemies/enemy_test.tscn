@@ -58,26 +58,28 @@ scale = Vector2(3.72656, 0.625)
 texture = ExtResource("2_3suxo")
 
 [node name="demon_bat" parent="." instance=ExtResource("2_yfuty")]
-position = Vector2(92, -131)
+position = Vector2(116, -162)
+detect_player = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(237, -96)
 zoom = Vector2(4, 4)
 
 [node name="dead_cultist" parent="." instance=ExtResource("1_e5lfd")]
-position = Vector2(203, -20)
+position = Vector2(389, -17)
 
 [node name="dead_cultist2" parent="." instance=ExtResource("1_e5lfd")]
-position = Vector2(157, -22)
+position = Vector2(387, -24)
 
 [node name="dead_cultist3" parent="." instance=ExtResource("1_e5lfd")]
-position = Vector2(179, -19)
+position = Vector2(386, -14)
 
 [node name="dead_cultist4" parent="." instance=ExtResource("1_e5lfd")]
 position = Vector2(291, -18)
 
 [node name="dead_cultist5" parent="." instance=ExtResource("1_e5lfd")]
 position = Vector2(340, -32)
+detect_player = false
 
 [node name="dead_cultist6" parent="." instance=ExtResource("1_e5lfd")]
 position = Vector2(331, -7)
@@ -88,7 +90,7 @@ in_wall_speed = 50.0
 follow_speed = 5.0
 
 [node name="player" parent="." instance=ExtResource("9_7go5g")]
-position = Vector2(269, -4)
+position = Vector2(35, -2)
 
 [node name="large_stalactite" parent="." instance=ExtResource("8_f24b8")]
 position = Vector2(396, -128)

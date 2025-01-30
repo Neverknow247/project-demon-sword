@@ -5,8 +5,17 @@ class_name DemonBat
 @export var speed = 50.0
 @export var slam_speed = 150.0
 @export var health := 2
+@export var detect_player := true:
+	set(value):
+		detect_player = value
+		if detect_player and detection_area.get_overlapping_bodies().size() > 0:
+			attack_target = detection_area.get_overlapping_bodies()[0]
+			state_process = process_following
 
 @onready var ceiling_cast = $ceiling_cast
+@onready var animation_player = $animation_player
+@onready var hurt_box_collision_shape = $hurtbox/collision_shape_2d
+@onready var detection_area = $detection_area
 
 #enum {
 	#RESTING,
@@ -19,9 +28,12 @@ class_name DemonBat
 #}
 
 #var state = IDLE
-var state_process = process_idle
+var state_process = process_sleep
 
 var attack_target = null
+
+func _ready() -> void:
+	set_state(process_sleep)
 
 func _physics_process(delta):
 	state_process.call(delta)
@@ -29,7 +41,12 @@ func _physics_process(delta):
 	move_and_slide()
 
 func process_idle(delta) -> void:
-	pass
+	animation_player.play("flying")
+	velocity = Vector2.ZERO
+
+func process_sleep(delta) -> void:
+	animation_player.play("sleep")
+	velocity = Vector2.ZERO
 
 func process_following(delta) -> void:
 	if ceiling_cast.is_colliding():
@@ -66,6 +83,8 @@ func set_state(value) -> void:
 	else:
 		$animation_player.play("flying")
 		$hitbox/collision_shape_2d.disabled = true
+	
+	hurt_box_collision_shape.set_deferred("disabled", state_process == process_sleep)
 
 
 func _on_attack_cooldown_timeout():
@@ -78,3 +97,10 @@ func _on_hurtbox_hurt(hitbox, damage):
 		queue_free()
 	elif health <= 1:
 		pass
+
+
+func _on_detection_area_body_entered(body):
+	if detect_player:
+		attack_target = body
+		set_state(process_following)
+		state_process = process_following

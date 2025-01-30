@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0hwat12i2kka"]
+[gd_scene load_steps=18 format=3 uid="uid://d0hwat12i2kka"]
 
 [ext_resource type="Script" path="res://enemies/dead_cultist/dead_cultist.gd" id="1_fycvj"]
 [ext_resource type="Texture2D" uid="uid://csb8ya7so37jv" path="res://assets/art/enemies/dead_cultist/cultist.png" id="2_tj06d"]
@@ -119,17 +119,37 @@ tracks/0/keys = {
 "values": [4, 5, 6, 5]
 }
 
+[sub_resource type="Animation" id="Animation_1icqg"]
+resource_name = "sleep"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_23u6s"]
 _data = {
 "RESET": SubResource("Animation_faexn"),
 "attack": SubResource("Animation_3oc7f"),
 "hurt": SubResource("Animation_7bh2s"),
 "idle": SubResource("Animation_c6bl8"),
-"run": SubResource("Animation_tylt6")
+"run": SubResource("Animation_tylt6"),
+"sleep": SubResource("Animation_1icqg")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgpfr"]
 size = Vector2(16, 46)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43dj7"]
+radius = 24.0
+height = 234.0
 
 [node name="dead_cultist" type="CharacterBody2D"]
 collision_layer = 8
@@ -195,6 +215,16 @@ collision_layer = 16
 [node name="collision_shape_2D" type="CollisionShape2D" parent="hurt_box"]
 shape = SubResource("RectangleShape2D_fgpfr")
 
+[node name="detection_area" type="Area2D" parent="."]
+position = Vector2(0, -24)
+rotation = 1.5708
+collision_layer = 0
+collision_mask = 2
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("CapsuleShape2D_43dj7")
+
 [connection signal="timeout" from="idle_timer" to="." method="_on_idle_timer_timeout"]
 [connection signal="animation_finished" from="animation_player" to="." method="_on_animation_player_animation_finished"]
 [connection signal="hurt" from="hurt_box" to="." method="_on_hurt_box_hurt"]
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

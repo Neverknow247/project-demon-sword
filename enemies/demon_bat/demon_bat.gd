@@ -55,9 +55,9 @@ func process_following(delta) -> void:
 	else:
 		velocity.y = 0
 		
-		velocity.x = sign(attack_target.position.x - position.x) * speed
+		velocity.x = sign(attack_target.global_position.x - global_position.x) * speed
 		
-		if abs(attack_target.position.x - position.x) < 8:
+		if abs(attack_target.global_positionion.x - global_position.x) < 8:
 			set_state(process_slam_attack)
 
 func process_slam_attack(delta) -> void:

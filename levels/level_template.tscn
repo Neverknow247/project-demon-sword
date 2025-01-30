@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://xkq46pyudke1"]
+
+[ext_resource type="Script" path="res://levels/level.gd" id="1_1nd8q"]
+[ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="2_ky37o"]
+[ext_resource type="PackedScene" uid="uid://cauus28cxkqkm" path="res://tilesets/ground_layer_2.tscn" id="3_2jpfi"]
+[ext_resource type="PackedScene" uid="uid://cdy3x7sopotxx" path="res://tilesets/ground_layer_3.tscn" id="4_c1s11"]
+[ext_resource type="PackedScene" uid="uid://jd6gt0qvcl13" path="res://tilesets/ground_layer_4.tscn" id="5_ehsvi"]
+
+[node name="level_template" type="Node2D"]
+script = ExtResource("1_1nd8q")
+
+[node name="camera_limits" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="tilemaps" type="Node2D" parent="."]
+
+[node name="ground_layer_1" parent="tilemaps" instance=ExtResource("2_ky37o")]
+
+[node name="ground_layer_2" parent="tilemaps" instance=ExtResource("3_2jpfi")]
+
+[node name="ground_layer_3" parent="tilemaps" instance=ExtResource("4_c1s11")]
+
+[node name="ground_layer_4" parent="tilemaps" instance=ExtResource("5_ehsvi")]
+
+[node name="stalactites" type="Node2D" parent="."]
+
+[node name="doors" type="Node2D" parent="."]
+
+[node name="cultists" type="Node2D" parent="."]

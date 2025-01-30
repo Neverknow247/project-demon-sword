@@ -21,12 +21,12 @@ func _ready():
 func _physics_process(delta):
 	if falling:
 		velocity.y += gravity * delta
-		position += velocity * delta
+		global_position += velocity * delta
 		if ground_cast.is_colliding():
 			falling = false
 			landed = true
 			
-			position.y = ground_cast.get_collision_point().y - sprite_2d.get_rect().size.y / 2 + 16
+			global_position.y = ground_cast.get_collision_point().y - sprite_2d.get_rect().size.y / 2 + 16
 
 func _input(event):
 	if event.is_action_pressed("cannon"):

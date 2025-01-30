@@ -13,7 +13,7 @@ var current_velocity = 0.0
 @export var default_max_velocity = 220
 @export var max_velocity : float = 220.0
 @export var acceleration = 1500
-@export var friction = 1300
+@export var friction = 1500
 @export var wall_friction = .02
 @export var ground_friction = .2
 @export var air_friction = 1500
@@ -39,6 +39,7 @@ var current_velocity = 0.0
 @onready var player_right_arm = $sprites/player_right_arm
 @onready var animation_player = $AnimationPlayer
 
+@onready var attack_cooldown_timer = $attack_cooldown_timer
 @onready var coyote_jump_timer = $coyote_jump_timer
 @onready var coyote_wall_timer = $coyote_wall_timer
 @onready var jump_timer = $jump_timer
@@ -56,6 +57,8 @@ var sword_action_number = 0
 @export var sword_arm_unlocked = false
 @export var cannon_arm_unlocked = false
 @export var spear_legs_unlocked = false
+
+signal hit_door(door)
 
 func _ready():
 	rng.randomize()
@@ -129,10 +132,7 @@ func apply_friction(delta):
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 	else:
-		if state == "sword_state":
-			velocity.x = move_toward(velocity.x, 0, sword_air_friction * delta)
-		else:
-			velocity.x = move_toward(velocity.x, 0, air_friction * delta)
+		velocity.x = move_toward(velocity.x, 0, air_friction * delta)
 
 func jump_check():
 	if is_on_floor():
@@ -167,7 +167,8 @@ func drop_check():
 func sword_check():
 	if !sword_arm_unlocked:
 		return
-	if Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword"):
+	if (Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword")) and attack_cooldown_timer.time_left<=0:
+		attack_cooldown_timer.start()
 		#sword_action_number += 1
 		if is_on_floor():
 			animation_player.play("sword_ground_attack_1")
@@ -275,7 +276,13 @@ func wall_detach(delta):
 func sword_state(delta):
 	#velocity.y = 0
 	apply_gravity(delta)
-	apply_friction(delta)
+	var input_axis = get_input_axis()
+	if is_moving(input_axis):
+		#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		apply_acceleration(delta,input_axis)
+	else:
+		apply_friction(delta)
+	jump_check()
 	move_and_slide()
 	#if (Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword")) and sword_action_pressed == false:
 		#sword_action_pressed = true

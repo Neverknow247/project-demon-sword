@@ -38,9 +38,9 @@ func process_idle(delta) -> void:
 
 func process_attack(delta) -> void:
 	if get_overlapping_bodies().size() > 0:
-		position += (attack_target.position - position).normalized() * in_wall_speed * delta
+		global_position += (attack_target.global_position - global_position).normalized() * in_wall_speed * delta
 	else:
-		position -= (attack_target.position - position).normalized() * follow_speed * delta
+		global_position -= (attack_target.global_position - global_position).normalized() * follow_speed * delta
 		if shot_cooldown.is_stopped():
 			if shots_fired < shots_before_teleport:
 				shoot()
@@ -58,8 +58,8 @@ func shoot() -> void:
 	
 	var bullet = preload("res://enemies/enemy_projectile.tscn").instantiate()
 	get_parent().add_child(bullet)
-	bullet.position = position
-	bullet.velocity = (attack_target.position - position).normalized() * bullet_speed
+	bullet.global_position = global_position
+	bullet.velocity = (attack_target.global_position - global_position).normalized() * bullet_speed
 	
 	shots_fired += 1
 
@@ -95,9 +95,9 @@ func _on_shot_cooldown_timeout():
 	pass # Replace with function body.
 
 func teleport() -> void:
-	position = attack_target.position
-	position.x += randf_range(-100, 100)
-	position.y += randf_range(-100, -16)
+	global_position = attack_target.global_position
+	global_position.x += randf_range(-100, 100)
+	global_position.y += randf_range(-100, -16)
 
 
 func _on_animation_player_animation_finished(anim_name):

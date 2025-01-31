@@ -81,12 +81,12 @@ func process_following(delta:float) -> void:
 		return
 	
 	if not idle_paused:
-		var attack_target_direction = sign(attack_target.position.x - position.x)
+		var attack_target_direction = sign(attack_target.global_position.x - global_position.x)
 		
 		if not ground_cast.is_colliding():
 			velocity.x = 0
 		else:
-			var attack_target_distance = abs(attack_target.position.x - position.x)
+			var attack_target_distance = abs(attack_target.global_position.x - global_position.x)
 			
 			if attack_target_distance <= ATTACK_DISTANCE and randi() % ATTACK_DISTANCE == 0:
 				set_state(process_attack)
@@ -102,13 +102,13 @@ func process_following(delta:float) -> void:
 						continue
 					var neighbor_distance = abs(enemy.position.x - position.x)
 					if shortest_neighbor_distance == null or neighbor_distance < shortest_neighbor_distance:
-						closest_neighbor_pos_x = enemy.position.x
+						closest_neighbor_pos_x = enemy.global_position.x
 						shortest_neighbor_distance = neighbor_distance
 			
 			if attack_target_distance > 16 and (shortest_neighbor_distance == null or attack_target_distance < shortest_neighbor_distance):
 				velocity.x = lerp(velocity.x, attack_target_direction * speed, delta)
 			elif shortest_neighbor_distance != null:
-				velocity.x = lerp(velocity.x, -sign(closest_neighbor_pos_x - position.x) * speed * 0.5, delta)
+				velocity.x = lerp(velocity.x, -sign(closest_neighbor_pos_x - global_position.x) * speed * 0.5, delta)
 			else:
 				velocity.x = 0
 			

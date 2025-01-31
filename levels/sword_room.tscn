@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://bugde6djqffwh"]
+[gd_scene load_steps=10 format=4 uid="uid://bugde6djqffwh"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_6lqne"]
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="2_808lh"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dxb0klj5o77vq" path="res://doors/door.tscn" id="6_sc4fw"]
 [ext_resource type="Resource" uid="uid://lne3mfhnlsma" path="res://door_connections/01-sword_link.tres" id="7_4vgaq"]
 [ext_resource type="PackedScene" uid="uid://b88c2jh71idkl" path="res://items/save_station.tscn" id="8_pbpxn"]
+[ext_resource type="PackedScene" uid="uid://birmql666fga6" path="res://items/sword.tscn" id="9_kmhdi"]
 
 [node name="level_template" type="Node2D" node_paths=PackedStringArray("save_station")]
 script = ExtResource("1_6lqne")
@@ -51,3 +52,7 @@ new_level_path = "res://levels/level_01.tscn"
 
 [node name="save_station" parent="items" instance=ExtResource("8_pbpxn")]
 position = Vector2(0, 16)
+
+[node name="sword" parent="items" instance=ExtResource("9_kmhdi")]
+z_index = -1
+position = Vector2(192, 24)

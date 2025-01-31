@@ -10,6 +10,22 @@ var cheats = {
 	"hp" : false
 }
 
+signal player_dead()
+signal health_changed(value)
+
+var default_max_health = 5
+var max_health = default_max_health : set = set_max_health
+func set_max_health(value):
+	max_health = value
+
+var health = max_health : set = set_health
+func set_health(value):
+	health = clamp(value,0,max_health)
+	health_changed.emit(health)
+	if health <= 0 : player_dead.emit()
+	#get_tree().change_scene_to_file()
+
+
 var new_save_data = {
 	"version" : ProjectSettings.get_setting("application/config/version"),
 	"time" : 0,

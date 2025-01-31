@@ -1,6 +1,7 @@
+res://player
+res://items
 res://levels
 res://door_connections
-res://items
 res://doors
 res://environmental_objects
 res://enemies

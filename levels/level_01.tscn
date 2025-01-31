@@ -58,7 +58,7 @@ new_level_path = "res://levels/sword_room.tscn"
 [node name="door3" parent="doors" instance=ExtResource("5_qa8yl")]
 position = Vector2(856, -80)
 connection = ExtResource("7_ondtp")
-new_level_path = "res://levels/level_00.tscn"
+new_level_path = "res://levels/level_02.tscn"
 
 [node name="cultists" type="Node2D" parent="."]
 

@@ -1,33 +1,29 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxgqrfkj0s7l1"]
+[gd_scene load_steps=24 format=3 uid="uid://dxgqrfkj0s7l1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pmbv3"]
 [ext_resource type="Texture2D" uid="uid://c10hxm5i2rrj8" path="res://assets/art/player/player_left_arm.png" id="2_aokjw"]
 [ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="3_27x4q"]
 [ext_resource type="Texture2D" uid="uid://g41qx0j3s2x4" path="res://assets/art/player/player_legs.png" id="3_o7brg"]
-[ext_resource type="Texture2D" uid="uid://8o4gp4gb34cj" path="res://assets/art/player/player_left_leg.png" id="3_ospv7"]
-[ext_resource type="Texture2D" uid="uid://bp23na5jak2gk" path="res://assets/art/player/player_right_leg.png" id="4_umq5h"]
 [ext_resource type="Texture2D" uid="uid://cvqlc3d4k3kn1" path="res://assets/art/player/player_head.png" id="5_n7id2"]
 [ext_resource type="Texture2D" uid="uid://bcksr1efimfy8" path="res://assets/art/player/player_torso.png" id="6_cqej3"]
 [ext_resource type="Texture2D" uid="uid://ckioy3a4im1m3" path="res://assets/art/player/player_right_arm.png" id="7_ltswk"]
+[ext_resource type="PackedScene" uid="uid://b6muhgfi604sl" path="res://player/cannon.tscn" id="10_w55yj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6cqd"]
 radius = 16.0
-height = 64.0
+height = 56.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3onr"]
 radius = 12.0
-height = 40.0
+height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ya4ld"]
 radius = 12.0
-height = 40.0
+height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0dq4n"]
 radius = 8.0
 height = 40.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpb41"]
-size = Vector2(16, 40)
 
 [sub_resource type="Animation" id="Animation_8sddv"]
 length = 0.001
@@ -193,6 +189,42 @@ tracks/4/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("sprites/ground_sword_hitbox_1/ground_collision_1:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("sprites/air_sword_hitbox_1/air_collision_1:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("sprites/air_sword_hitbox_2/air_collision_2:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_qj761"]
 resource_name = "jump"
@@ -261,6 +293,42 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [5, 6, 7, 8]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("sprites/ground_sword_hitbox_1/ground_collision_1:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("sprites/air_sword_hitbox_1/air_collision_1:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("sprites/air_sword_hitbox_2/air_collision_2:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_suq5a"]
@@ -351,6 +419,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("sprites/ground_sword_hitbox_1/ground_collision_1:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_lceas"]
 resource_name = "sword_air_attack_2"
@@ -434,6 +514,30 @@ tracks/5/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("sprites/air_sword_hitbox_1/air_collision_1:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("sprites/air_sword_hitbox_2/air_collision_2:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_sj4va"]
 resource_name = "sword_ground_attack_2"
@@ -459,6 +563,7 @@ _data = {
 collision_layer = 2
 script = ExtResource("1_pmbv3")
 sword_arm_unlocked = true
+cannon_arm_unlocked = true
 
 [node name="sprites" type="Node2D" parent="."]
 position = Vector2(0, -32)
@@ -472,20 +577,6 @@ vframes = 5
 texture = ExtResource("3_o7brg")
 hframes = 5
 vframes = 5
-
-[node name="player_left_leg" type="Sprite2D" parent="sprites"]
-visible = false
-texture = ExtResource("3_ospv7")
-hframes = 5
-vframes = 5
-frame = 11
-
-[node name="player_right_leg" type="Sprite2D" parent="sprites"]
-visible = false
-texture = ExtResource("4_umq5h")
-hframes = 5
-vframes = 5
-frame = 11
 
 [node name="player_head" type="Sprite2D" parent="sprites"]
 texture = ExtResource("5_n7id2")
@@ -506,7 +597,7 @@ vframes = 5
 collision_mask = 16
 
 [node name="ground_collision_1" type="CollisionShape2D" parent="sprites/ground_sword_hitbox_1"]
-position = Vector2(32, 8)
+position = Vector2(36, 8)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_s6cqd")
 disabled = true
@@ -515,37 +606,28 @@ disabled = true
 collision_mask = 16
 
 [node name="air_collision_1" type="CollisionShape2D" parent="sprites/air_sword_hitbox_1"]
-position = Vector2(20, 0)
+position = Vector2(24, 4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g3onr")
 disabled = true
 
 [node name="air_sword_hitbox_2" parent="sprites" instance=ExtResource("3_27x4q")]
 collision_mask = 16
-monitoring = false
 
 [node name="air_collision_2" type="CollisionShape2D" parent="sprites/air_sword_hitbox_2"]
-position = Vector2(-20, 0)
+position = Vector2(-24, 4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ya4ld")
 disabled = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="cannon" parent="." instance=ExtResource("10_w55yj")]
 visible = false
-offset_left = -16.0
-offset_top = -32.0
-offset_right = 16.0
-color = Color(2.40654e-07, 0.360408, 0.3487, 1)
+z_index = -1
+position = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -20)
 shape = SubResource("CapsuleShape2D_0dq4n")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -20)
-shape = SubResource("RectangleShape2D_cpb41")
-disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -555,6 +637,10 @@ autoplay = "idle"
 
 [node name="attack_cooldown_timer" type="Timer" parent="."]
 wait_time = 0.42
+one_shot = true
+
+[node name="cannon_cooldown_timer" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
 [node name="coyote_jump_timer" type="Timer" parent="."]

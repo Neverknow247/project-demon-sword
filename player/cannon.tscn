@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6muhgfi604sl"]
+
+[ext_resource type="Script" path="res://player/cannon.gd" id="1_euyi7"]
+[ext_resource type="Texture2D" uid="uid://b6vjved3ohlps" path="res://assets/art/player/cannon.png" id="2_k2skh"]
+
+[node name="cannon" type="Node2D"]
+script = ExtResource("1_euyi7")
+
+[node name="rotation_point" type="Node2D" parent="."]
+position = Vector2(4, 1)
+
+[node name="muzzle" type="Marker2D" parent="rotation_point"]
+position = Vector2(18, 0)
+
+[node name="sprite_2d" type="Sprite2D" parent="rotation_point"]
+position = Vector2(8, 1)
+texture = ExtResource("2_k2skh")
+
+[node name="fire_rate_timer" type="Timer" parent="."]

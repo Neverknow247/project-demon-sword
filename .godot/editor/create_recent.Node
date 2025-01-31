@@ -11,4 +11,6 @@ Sprite2D
 Area2D
 RayCast2D
 GPUParticles2D
-CollisionPolygon2D
+StaticBody2D
+RigidBody2D
+CharacterBody2D

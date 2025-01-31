@@ -59,7 +59,6 @@ texture = ExtResource("2_3suxo")
 
 [node name="demon_bat" parent="." instance=ExtResource("2_yfuty")]
 position = Vector2(116, -162)
-detect_player = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(237, -96)
@@ -85,7 +84,7 @@ detect_player = false
 position = Vector2(331, -7)
 
 [node name="eye" parent="." instance=ExtResource("7_7d77d")]
-position = Vector2(135, -86)
+position = Vector2(175, -16)
 in_wall_speed = 50.0
 follow_speed = 5.0
 

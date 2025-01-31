@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var stats = Stats
+var sounds = Sounds
 var rng = RandomNumberGenerator.new()
 
 const sword_arm_sprite = preload("res://assets/art/player/player_sword_arm.png")
@@ -78,13 +80,17 @@ func _physics_process(delta):
 	callable.call(delta)
 
 func check_sword_arm_unlocked():
-	if sword_arm_unlocked:
+	if stats["save_data"]["items"]["sword"] || sword_arm_unlocked == true:
+		sword_arm_unlocked = true
 		player_right_arm.texture = sword_arm_sprite
+		sounds.play_music("after_sword")
 	else:
 		player_right_arm.texture = right_arm_sprite
+		sounds.play_music("before_sword")
 
 func check_cannon_arm_unlocked():
-	if cannon_arm_unlocked:
+	if stats["save_data"]["items"]["cannon"] || cannon_arm_unlocked == true:
+		cannon_arm_unlocked = true
 		player_left_arm.texture = cannon_arm_sprite
 	else:
 		player_left_arm.texture = left_arm_sprite
@@ -382,3 +388,17 @@ func _on_drop_timer_timeout():
 func _on_hurtbox_hurt(hitbox, damage):
 	if !hit_animator.is_playing():
 		hit_animator.play("blink")
+		stats.health -= damage
+
+func _on_delete_me_late_area_entered(area):
+	if area.item_name == "sword":
+		stats["save_data"]["items"]["sword"] = true
+		sword_arm_unlocked = true
+		check_sword_arm_unlocked()
+		area.queue_free()
+	if area.item_name == "cannon":
+		stats["save_data"]["items"]["cannon"] = true
+		cannon_arm_unlocked = true
+		check_cannon_arm_unlocked()
+		area.queue_free()
+		

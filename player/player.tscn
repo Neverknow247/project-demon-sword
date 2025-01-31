@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dxgqrfkj0s7l1"]
+[gd_scene load_steps=31 format=3 uid="uid://dxgqrfkj0s7l1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pmbv3"]
 [ext_resource type="Texture2D" uid="uid://c10hxm5i2rrj8" path="res://assets/art/player/player_left_arm.png" id="2_aokjw"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bcksr1efimfy8" path="res://assets/art/player/player_torso.png" id="6_cqej3"]
 [ext_resource type="Texture2D" uid="uid://ckioy3a4im1m3" path="res://assets/art/player/player_right_arm.png" id="7_ltswk"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="9_mpg6x"]
+[ext_resource type="PackedScene" uid="uid://dk7pjqyyv82ux" path="res://ui/game_ui.tscn" id="10_t1320"]
 [ext_resource type="PackedScene" uid="uid://b6muhgfi604sl" path="res://player/cannon.tscn" id="10_w55yj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6cqd"]
@@ -623,6 +624,33 @@ _data = {
 "sword_ground_attack_3": SubResource("Animation_ljwtr")
 }
 
+[sub_resource type="Animation" id="Animation_jwi5j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_7tnk2"]
 resource_name = "blink"
 length = 1.1
@@ -669,44 +697,18 @@ tracks/2/keys = {
 "values": [Color(128.498, 128.498, 128.498, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_jwi5j"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprites:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprites:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uqfnp"]
 _data = {
 "RESET": SubResource("Animation_jwi5j"),
 "blink": SubResource("Animation_7tnk2")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uqt44"]
+height = 48.0
+
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_pmbv3")
-sword_arm_unlocked = true
-cannon_arm_unlocked = true
 
 [node name="sprites" type="Node2D" parent="."]
 
@@ -841,12 +843,23 @@ drag_vertical_enabled = true
 drag_horizontal_offset = 0.05
 drag_bottom_margin = 0.0
 
+[node name="game_ui" parent="Camera2D" instance=ExtResource("10_t1320")]
+
 [node name="camera_follow" type="Marker2D" parent="."]
 position = Vector2(0, -40)
+
+[node name="delete_me_late" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="delete_me_late"]
+position = Vector2(0, -24)
+shape = SubResource("CapsuleShape2D_uqt44")
 
 [connection signal="hurt" from="sprites/hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="timeout" from="jump_timer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="jump_buffer_timer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="drop_timer" to="." method="_on_drop_timer_timeout"]
+[connection signal="area_entered" from="delete_me_late" to="." method="_on_delete_me_late_area_entered"]
 
 [editable path="sprites/cannon"]

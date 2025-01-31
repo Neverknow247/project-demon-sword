@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dw11hoi3kycp3"]
+[gd_scene load_steps=10 format=4 uid="uid://dw11hoi3kycp3"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_mjcil"]
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="2_7wk4f"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dxb0klj5o77vq" path="res://doors/door.tscn" id="6_w7nl7"]
 [ext_resource type="Resource" uid="uid://bei26pexm7hqj" path="res://door_connections/07-cannon_link.tres" id="7_2nwh3"]
 [ext_resource type="PackedScene" uid="uid://b88c2jh71idkl" path="res://items/save_station.tscn" id="7_la5l4"]
+[ext_resource type="PackedScene" uid="uid://vbcojuaud2t4" path="res://items/cannon.tscn" id="9_q1xhr"]
 
 [node name="level_template" type="Node2D" node_paths=PackedStringArray("save_station")]
 script = ExtResource("1_mjcil")
@@ -49,3 +50,6 @@ new_level_path = "res://levels/level_07.tscn"
 [node name="items" type="Node2D" parent="."]
 
 [node name="save_station" parent="items" instance=ExtResource("7_la5l4")]
+
+[node name="cannon" parent="items" instance=ExtResource("9_q1xhr")]
+position = Vector2(-264, -43)

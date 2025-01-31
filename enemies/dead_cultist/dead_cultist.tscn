@@ -39,7 +39,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_3oc7f"]
@@ -52,7 +52,7 @@ tracks/0/path = NodePath("flip_helper/hit_box/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.433333, 0.733333),
+"times": PackedFloat32Array(0, 0.133333, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -155,13 +155,16 @@ height = 234.0
 [node name="dead_cultist" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_fycvj")
+speed = 180.0
+health = 8.0
+gravity = 500.0
 
 [node name="sprite" type="Sprite2D" parent="."]
 position = Vector2(8.9407e-08, -24)
 texture = ExtResource("2_tj06d")
 hframes = 4
 vframes = 3
-frame = 4
+frame = 2
 
 [node name="sprite2" type="Sprite2D" parent="."]
 position = Vector2(8.9407e-08, -24)

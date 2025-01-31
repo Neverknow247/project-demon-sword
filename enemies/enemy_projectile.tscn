@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://clr7mre6yafhy"]
+[gd_scene load_steps=5 format=3 uid="uid://clr7mre6yafhy"]
 
 [ext_resource type="Script" path="res://enemies/enemy_projectile.gd" id="1_881e0"]
 [ext_resource type="Texture2D" uid="uid://bcpkqoagkappg" path="res://assets/art/enemies/eye/tooth.png" id="2_hjctm"]
+[ext_resource type="Script" path="res://characters/hurtbox.gd" id="3_et208"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nfexu"]
 
 [node name="enemy_projectile" type="Area2D"]
 collision_layer = 0
@@ -19,5 +22,14 @@ autostart = true
 [node name="collision_polygon_2d" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(10, 0, 5, -4, -8, -4, -10, 1, -7, 5, 2, 4, 4, 2)
 
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_et208")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_nfexu")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="life_timer" to="." method="_on_life_timer_timeout"]
+[connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]

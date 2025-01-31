@@ -87,6 +87,7 @@ _data = {
 [node name="large_stalactite" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource("1_4b5j4")
+gravity = 500.0
 
 [node name="gpu_particles_2d" type="GPUParticles2D" parent="."]
 modulate = Color(0.558594, 0.256497, 0.119699, 1)

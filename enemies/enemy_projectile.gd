@@ -16,3 +16,7 @@ func _on_area_entered(hurtbox):
 
 func _on_life_timer_timeout():
 	queue_free()
+
+
+func _on_hurtbox_hurt(hitbox, damage):
+	queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://c4rnxeto7xhjv"]
+[gd_scene load_steps=11 format=4 uid="uid://c4rnxeto7xhjv"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_h00nc"]
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="2_nrbjy"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dxb0klj5o77vq" path="res://doors/door.tscn" id="6_i782l"]
 [ext_resource type="Resource" uid="uid://utkxrscckj8c" path="res://door_connections/06-07_link.tres" id="7_rc0mx"]
 [ext_resource type="Resource" uid="uid://c8iai6i1p7ls6" path="res://door_connections/07-08_link.tres" id="9_r8oyb"]
+[ext_resource type="Resource" uid="uid://bei26pexm7hqj" path="res://door_connections/07-cannon_link.tres" id="9_tbap7"]
 
 [node name="level_template" type="Node2D"]
 script = ExtResource("1_h00nc")
@@ -49,6 +50,8 @@ new_level_path = "res://levels/level_06.tscn"
 [node name="door2" parent="doors" instance=ExtResource("6_i782l")]
 position = Vector2(-464, 176)
 scale = Vector2(-1, 1)
+connection = ExtResource("9_tbap7")
+new_level_path = "res://levels/cannon_room.tscn"
 
 [node name="door3" parent="doors" instance=ExtResource("6_i782l")]
 position = Vector2(-464, -32)

@@ -40,6 +40,7 @@ var current_velocity = 0.0
 @onready var player_torso = $sprites/player_torso
 @onready var player_right_arm = $sprites/player_right_arm
 @onready var animation_player = $AnimationPlayer
+@onready var hit_animator = $hit_animator
 @onready var cannon = $sprites/cannon
 
 @onready var attack_cooldown_timer = $attack_cooldown_timer
@@ -377,3 +378,7 @@ func _on_jump_buffer_timer_timeout():
 
 func _on_drop_timer_timeout():
 	set_collision_mask_value(8,true)
+
+func _on_hurtbox_hurt(hitbox, damage):
+	if !hit_animator.is_playing():
+		hit_animator.play("blink")

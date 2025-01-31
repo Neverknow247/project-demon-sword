@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://1u4ouna2d2dh"]
+[gd_scene load_steps=7 format=3 uid="uid://1u4ouna2d2dh"]
 
 [ext_resource type="Texture2D" uid="uid://bnvtsv5wv8mhx" path="res://assets/art/ui/title_faded.png" id="1_b8bd5"]
 [ext_resource type="Texture2D" uid="uid://bhfytl140gnqp" path="res://assets/art/ui/blood_orb.png" id="1_capgx"]
+[ext_resource type="Script" path="res://ui/main_menu.gd" id="1_lxjcg"]
 
 [sub_resource type="Gradient" id="Gradient_7dr8k"]
 colors = PackedColorArray(1, 1, 1, 0.772549, 1, 1, 1, 0)
@@ -23,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lxjcg")
 
 [node name="color_rect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -100,3 +102,6 @@ theme_override_constants/outline_size = 32
 theme_override_font_sizes/font_size = 64
 text = "Credits"
 flat = true
+
+[connection signal="pressed" from="margin_container/v_box_container/new_game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="margin_container/v_box_container/continue" to="." method="_on_continue_pressed"]

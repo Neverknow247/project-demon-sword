@@ -1,8 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdrno0s1uwp8c"]
+[gd_scene load_steps=8 format=3 uid="uid://bdrno0s1uwp8c"]
 
 [ext_resource type="Script" path="res://items/heart.gd" id="1_fjwj2"]
-[ext_resource type="Texture2D" path="res://assets/art/items/heart.png" id="1_vo3ky"]
+[ext_resource type="Texture2D" uid="uid://wntttvi2gs3m" path="res://assets/art/items/heart.png" id="1_vo3ky"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="2_vr1ux"]
+[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sfx/hit.wav" id="4_uhwu7"]
+
+[sub_resource type="Animation" id="Animation_r7mcv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_ps5ot"]
 resource_name = "rupture"
@@ -19,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
-}
-
-[sub_resource type="Animation" id="Animation_r7mcv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uqiqq"]
@@ -60,5 +61,9 @@ collision_layer = 16
 
 [node name="collision_polygon_2d" type="CollisionPolygon2D" parent="hurtbox"]
 polygon = PackedVector2Array(3, -12, -13, -2, -22, 25, -20, 40, -5, 46, 18, 36, 30, 18, 29, 1, 19, -10)
+
+[node name="hurt_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_uhwu7")
+bus = &"Sounds"
 
 [connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]

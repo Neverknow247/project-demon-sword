@@ -18,6 +18,7 @@ var state_process = process_sleep
 @onready var hurt_box = $hurt_box
 @onready var hurt_box_collision_shape = $hurt_box/collision_shape_2D
 @onready var detection_area = $detection_area
+@onready var hurt_sound = $hurt_sound
 
 #@onready var idle_timer = 
 
@@ -175,7 +176,7 @@ func _on_hurt_box_hurt(hitbox, damage):
 		
 		queue_free()
 	else:
-		pass
+		hurt_sound.play()
 
 
 func _on_detection_area_body_entered(body):

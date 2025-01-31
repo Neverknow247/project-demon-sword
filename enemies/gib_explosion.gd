@@ -14,11 +14,11 @@ func _process(delta):
 	pass
 
 func explode(explosion_rotation) -> void:
-	for child :RigidBody2D in get_children():
-		#remove_child(child)
-		#get_parent().add_child(child)
-		var explosion_velocity = Vector2(randf_range(MIN_SPEED, MAX_SPEED), 0).rotated(explosion_rotation + randf_range(-SPREAD/2, SPREAD/2))
-		child.apply_central_impulse(explosion_velocity)
+	for child in get_children():
+		if child is Gib:
+			var explosion_velocity = Vector2(randf_range(MIN_SPEED, MAX_SPEED), 0).rotated(explosion_rotation + randf_range(-SPREAD/2, SPREAD/2))
+			child.apply_central_impulse(explosion_velocity)
+	
 
 
 func _on_child_exiting_tree(node):

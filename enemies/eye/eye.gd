@@ -6,6 +6,7 @@ class_name Eye
 @onready var animation_player = $animation_player
 @onready var detection_area = $detection_area
 @onready var hurt_box_collision_shape = $hurtbox/collision_shape_2d
+@onready var hurt_sound = $hurt_sound
 
 var state_process = process_idle
 var attack_target = null
@@ -124,7 +125,7 @@ func _on_hurtbox_hurt(hitbox, damage):
 		queue_free()
 	else:
 		set_state(process_hurt)
-		
+		hurt_sound.play()
 
 
 func _on_detection_area_body_entered(body):

@@ -21,7 +21,7 @@ var state_process = process_sleep
 
 #@onready var idle_timer = 
 
-@export var speed = 40.0
+@export var speed = 80.0
 @export var health := 3.0
 @export var gravity := 90.0
 @export var detect_player := true:
@@ -66,9 +66,9 @@ func process_idle(delta:float) -> void:
 
 func updated_sprite_direction() -> void:
 	if velocity.x > 0:
-		$sprite.flip_h = false
+		set_flip(false)
 	elif velocity.x < 0:
-		$sprite.flip_h = true
+		set_flip(true)
 
 func process_attack(delta:float) -> void:
 	animation_player.play("attack")
@@ -88,7 +88,7 @@ func process_following(delta:float) -> void:
 		else:
 			var attack_target_distance = abs(attack_target.global_position.x - global_position.x)
 			
-			if attack_target_distance <= ATTACK_DISTANCE and randi() % ATTACK_DISTANCE == 0:
+			if attack_target_distance <= ATTACK_DISTANCE and randi() % 16 == 0:
 				set_state(process_attack)
 				return
 			
@@ -106,7 +106,7 @@ func process_following(delta:float) -> void:
 						shortest_neighbor_distance = neighbor_distance
 			
 			if attack_target_distance > 16 and (shortest_neighbor_distance == null or attack_target_distance < shortest_neighbor_distance):
-				velocity.x = lerp(velocity.x, attack_target_direction * speed, delta)
+				velocity.x = lerp(velocity.x, attack_target_direction * speed, delta * 2)
 			elif shortest_neighbor_distance != null:
 				velocity.x = lerp(velocity.x, -sign(closest_neighbor_pos_x - global_position.x) * speed * 0.5, delta)
 			else:
@@ -170,7 +170,7 @@ func _on_hurt_box_hurt(hitbox, damage):
 	if health <= 0:
 		var gib = preload("res://enemies/dead_cultist/dead_cultist_gib_explosion.tscn").instantiate()
 		get_parent().call_deferred("add_child", gib)
-		gib.global_position = global_position
+		gib.set_deferred("global_position", global_position)
 		gib.explode(blood_spray.rotation)
 		
 		queue_free()

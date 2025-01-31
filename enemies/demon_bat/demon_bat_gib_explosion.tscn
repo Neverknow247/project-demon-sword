@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc81ilxmdqrni"]
+[gd_scene load_steps=10 format=3 uid="uid://dc81ilxmdqrni"]
 
 [ext_resource type="Script" path="res://enemies/gib_explosion.gd" id="1_usk3q"]
 [ext_resource type="Texture2D" uid="uid://bowffx0wyvltf" path="res://assets/art/enemies/demon_bat/head.png" id="2_0s10i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://icaax3fkll87" path="res://assets/art/enemies/demon_bat/left_wing.png" id="4_8topa"]
 [ext_resource type="Texture2D" uid="uid://diglgnvnulcpb" path="res://assets/art/enemies/demon_bat/right_wing.png" id="5_hq5dr"]
 [ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="6_45mkl"]
+[ext_resource type="AudioStream" uid="uid://gmkn7sqq2yu1" path="res://assets/sfx/gib.wav" id="7_qot5p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b7kq"]
 radius = 7.0
@@ -115,5 +116,10 @@ texture = ExtResource("6_45mkl")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="gib8"]
 shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="hurt_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_qot5p")
+autoplay = true
+bus = &"Sounds"
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

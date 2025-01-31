@@ -22,4 +22,6 @@ func _on_hurtbox_hurt(hitbox, damage):
 		get_parent().call_deferred("add_child", blood_orb)
 		blood_orb.set_deferred("global_position", global_position + Vector2(3, 14))
 		
+		$hurt_sound.play()
+		
 		#could heal player here, or in blood orb script

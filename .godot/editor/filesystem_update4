@@ -8,3 +8,17 @@ res://assets/art/enemies/demon_bat/demon_bat.tscn
 res://enemies/dead_cultist/dead_cultist.tscn
 res://characters/hurtbox.tscn
 res://items/blood_orb.gd
+res://ui/main_menu.tscn
+res://default_bus_layout.tres
+res://particles/blood_spray.gd
+res://enemies/dead_cultist/dead_cultist.gd
+res://environmental_objects/large_stalactite.gd
+res://levels/world.gd
+res://enemies/dead_cultist/dead_cultist_gib_explosion.tscn
+res://enemies/gib_explosion.gd
+res://enemies/gib.gd
+res://enemies/demon_bat/demon_bat_gib_explosion.tscn
+res://enemies/eye/eye_gib_explosion.tscn
+res://enemies/demon_bat/demon_bat.gd
+res://enemies/eye/eye.tscn
+res://enemies/eye/eye.gd

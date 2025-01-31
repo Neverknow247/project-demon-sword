@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c32dsujtpi732"]
+[gd_scene load_steps=16 format=3 uid="uid://c32dsujtpi732"]
 
 [ext_resource type="Script" path="res://enemies/gib_explosion.gd" id="1_7u34t"]
 [ext_resource type="Texture2D" uid="uid://cpwa5sfedt4f5" path="res://assets/art/enemies/dead_cultist/head.png" id="2_7pue3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dq30ncaak08rk" path="res://assets/art/enemies/dead_cultist/right_leg.png" id="5_debwq"]
 [ext_resource type="Texture2D" uid="uid://bnq0xrnhjqf47" path="res://assets/art/enemies/dead_cultist/left_leg.png" id="6_so2gu"]
 [ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="7_capot"]
+[ext_resource type="AudioStream" uid="uid://gmkn7sqq2yu1" path="res://assets/sfx/gib.wav" id="9_bnvv0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ddehg"]
 radius = 6.0
@@ -131,5 +132,10 @@ texture = ExtResource("7_capot")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="gib11"]
 shape = SubResource("CircleShape2D_plngd")
+
+[node name="hurt_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_bnvv0")
+autoplay = true
+bus = &"Sounds"
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

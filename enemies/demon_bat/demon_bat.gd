@@ -18,6 +18,7 @@ class_name DemonBat
 @onready var detection_area = $detection_area
 @onready var sprite_2d = $sprite_2d
 @onready var rise_cast = $rise_cast
+@onready var hurt_sound = $hurt_sound
 
 #enum {
 	#RESTING,
@@ -123,7 +124,7 @@ func _on_hurtbox_hurt(hitbox, damage):
 		velocity = (hurt_box_collision_shape.global_position - hitbox.global_position).normalized() * 80
 		set_state(process_hurt)
 		
-		
+		hurt_sound.play()
 
 
 func _on_detection_area_body_entered(body):

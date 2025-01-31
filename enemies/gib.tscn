@@ -41,7 +41,6 @@ _data = {
 }
 
 [node name="gib" type="RigidBody2D"]
-position = Vector2(0, -39)
 collision_layer = 0
 script = ExtResource("1_1mmyp")
 

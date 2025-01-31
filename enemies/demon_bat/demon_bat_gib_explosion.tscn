@@ -1,0 +1,119 @@
+[gd_scene load_steps=9 format=3 uid="uid://dc81ilxmdqrni"]
+
+[ext_resource type="Script" path="res://enemies/gib_explosion.gd" id="1_usk3q"]
+[ext_resource type="Texture2D" uid="uid://bowffx0wyvltf" path="res://assets/art/enemies/demon_bat/head.png" id="2_0s10i"]
+[ext_resource type="PackedScene" uid="uid://cqv6wjgjliwma" path="res://enemies/gib.tscn" id="3_4kbrh"]
+[ext_resource type="Texture2D" uid="uid://icaax3fkll87" path="res://assets/art/enemies/demon_bat/left_wing.png" id="4_8topa"]
+[ext_resource type="Texture2D" uid="uid://diglgnvnulcpb" path="res://assets/art/enemies/demon_bat/right_wing.png" id="5_hq5dr"]
+[ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="6_45mkl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3b7kq"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8hfqt"]
+radius = 2.0
+
+[node name="demon_bat_gib_explosion" type="Node2D"]
+script = ExtResource("1_usk3q")
+
+[node name="head" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(3, -3)
+
+[node name="sprite_2d" type="Sprite2D" parent="head"]
+texture = ExtResource("2_0s10i")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="head"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_3b7kq")
+
+[node name="left_wing" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(17, 4)
+
+[node name="sprite_2d" type="Sprite2D" parent="left_wing"]
+texture = ExtResource("5_hq5dr")
+
+[node name="collision_polygon_2d" type="CollisionPolygon2D" parent="left_wing"]
+polygon = PackedVector2Array(-5, -11, 7, -6, 0, 12, -4, 4, -5, -1, -7, -6)
+
+[node name="right_wing" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(-21, -2)
+
+[node name="collision_polygon_2d" type="CollisionPolygon2D" parent="right_wing"]
+polygon = PackedVector2Array(14, -5, 1, -8, -8, -6, -14, 4, -11, 7, -4, 9, 7, 3, 13, 2)
+
+[node name="sprite_2d" type="Sprite2D" parent="right_wing"]
+texture = ExtResource("4_8topa")
+
+[node name="gib" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(-7, 0)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib2" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(-5, 4)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib2"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib2"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib3" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(-9, 4)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib3"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib3"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib4" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(0, 6)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib4"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib4"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib5" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(5, 7)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib5"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib5"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib6" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(10, 7)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib6"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib6"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib7" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(-5, 8)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib7"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib7"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[node name="gib8" parent="." instance=ExtResource("3_4kbrh")]
+position = Vector2(1, 10)
+
+[node name="sprite_2d" type="Sprite2D" parent="gib8"]
+texture = ExtResource("6_45mkl")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib8"]
+shape = SubResource("CircleShape2D_8hfqt")
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

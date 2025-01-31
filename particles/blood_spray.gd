@@ -13,3 +13,9 @@ func _process(delta):
 
 func _on_animation_player_animation_finished(anim_name):
 	queue_free()
+
+func set_up(new_parent, hurtbox_pos, hitbox_pos) -> void:
+	new_parent.add_child(self)
+	global_position = hurtbox_pos
+	look_at(hitbox_pos)
+	rotation += TAU / 2

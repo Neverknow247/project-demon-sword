@@ -2,7 +2,8 @@ extends Node2D
 
 
 # Called when the node enters the scene tree for the first time.
-#func _ready():
+func _ready():
+	RenderingServer.set_default_clear_color(Color("#130310"))
 	#for child in get_children():
 		#if child is DeadCultist or child is DemonBat:
 			#child.attack_target = $player

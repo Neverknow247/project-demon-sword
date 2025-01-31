@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyofnuchp1cp8"]
+[gd_scene load_steps=7 format=3 uid="uid://bdrno0s1uwp8c"]
 
 [ext_resource type="Script" path="res://items/heart.gd" id="1_fjwj2"]
-[ext_resource type="Texture2D" uid="uid://wntttvi2gs3m" path="res://assets/art/items/heart.png" id="1_vo3ky"]
+[ext_resource type="Texture2D" path="res://assets/art/items/heart.png" id="1_vo3ky"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="2_vr1ux"]
 
 [sub_resource type="Animation" id="Animation_ps5ot"]

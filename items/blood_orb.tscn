@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b137n51hwvhty"]
+[gd_scene load_steps=7 format=3 uid="uid://d152acf8ilnnq"]
 
-[ext_resource type="Texture2D" uid="uid://bui0au233o4tj" path="res://assets/art/items/blood_orb.png" id="1_0wtjo"]
+[ext_resource type="Texture2D" path="res://assets/art/items/blood_orb.png" id="1_0wtjo"]
 [ext_resource type="Script" path="res://items/blood_orb.gd" id="1_ersb7"]
 
 [sub_resource type="Animation" id="Animation_xbq65"]

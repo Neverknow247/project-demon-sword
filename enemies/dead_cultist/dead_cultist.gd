@@ -98,7 +98,9 @@ func process_following(delta:float) -> void:
 				if enemy == self:
 					continue
 				if enemy is DeadCultist:
-					var neighbor_distance = abs(enemy.global_position.x - global_position.x)
+					if enemy.state_process == enemy.process_sleep:
+						continue
+					var neighbor_distance = abs(enemy.position.x - position.x)
 					if shortest_neighbor_distance == null or neighbor_distance < shortest_neighbor_distance:
 						closest_neighbor_pos_x = enemy.global_position.x
 						shortest_neighbor_distance = neighbor_distance
@@ -123,7 +125,7 @@ func process_following(delta:float) -> void:
 	
 	updated_sprite_direction()
 
-func process_stunned(delta: float) -> void:
+func process_hurt(delta: float) -> void:
 	velocity = Vector2.ZERO
 
 func process_sleep(delta) -> void:
@@ -159,22 +161,16 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_hurt_box_hurt(hitbox, damage):
 	var blood_spray = preload("res://particles/blood_spray.tscn").instantiate()
-	get_parent().add_child(blood_spray)
-	#get_parent().
-	blood_spray.position = hurt_box.global_position
-	
-	blood_spray.look_at(hitbox.global_position)
-	blood_spray.rotation += TAU / 2
+	blood_spray.set_up(get_parent(), hurt_box.global_position, hitbox.global_position)
 	
 	animation_player.play("hurt")
-	set_state(process_stunned)
+	set_state(process_hurt)
 	
 	health -= damage
 	if health <= 0:
 		var gib = preload("res://enemies/dead_cultist/dead_cultist_gib_explosion.tscn").instantiate()
 		get_parent().call_deferred("add_child", gib)
-		#get_parent().add_child(gib)
-		gib.position = position
+		gib.global_position = global_position
 		gib.explode(blood_spray.rotation)
 		
 		queue_free()

@@ -4,6 +4,8 @@ class_name Eye
 
 @onready var shot_cooldown = $shot_cooldown
 @onready var animation_player = $animation_player
+@onready var detection_area = $detection_area
+@onready var hurt_box_collision_shape = $hurtbox/collision_shape_2d
 
 var state_process = process_idle
 var attack_target = null
@@ -13,10 +15,19 @@ var attack_target = null
 @export var bullet_speed := 100.0
 @export var in_wall_speed := 50.0
 @export var follow_speed := 50.0
+@export var detect_player := true:
+	set(value):
+		detect_player = value
+		if detect_player and detection_area.get_overlapping_bodies().size() > 0:
+			attack_target = detection_area.get_overlapping_bodies()[0]
+			state_process = process_teleport
 
 @export var health := 1
 
 var shots_fired := 0
+
+func _ready():
+	state_process = process_sleep
 
 func _physics_process(delta):
 	state_process.call(delta)
@@ -52,6 +63,13 @@ func shoot() -> void:
 	
 	shots_fired += 1
 
+func process_sleep(delta) -> void:
+	animation_player.play("sleep")
+	#velocity = Vector2.ZERO
+
+func process_hurt(deltaa) -> void:
+	animation_player.play("hurt")
+
 func set_state(value) -> void:
 	state_process = value
 	if state_process == process_attack:
@@ -63,6 +81,8 @@ func set_state(value) -> void:
 	else:
 		shot_cooldown.stop()
 		animation_player.play("idle")
+	
+	hurt_box_collision_shape.set_deferred("disabled", state_process == process_sleep)
 
 
 func _on_shot_cooldown_timeout():
@@ -83,9 +103,31 @@ func teleport() -> void:
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "teleport":
 		set_state(process_attack)
+	elif anim_name == "hurt":
+		set_state(process_teleport)
 
 
 func _on_hurtbox_hurt(hitbox, damage):
+	if state_process == process_teleport:
+		return
+	
+	var blood_spray = preload("res://particles/blood_spray.tscn").instantiate()
+	blood_spray.set_up(get_parent(), hurt_box_collision_shape.global_position, hitbox.global_position)
+	
 	health -= damage
 	if health <= 0:
+		var gib = preload("res://enemies/eye/eye_gib_explosion.tscn").instantiate()
+		get_parent().call_deferred("add_child", gib)
+		gib.global_position = global_position
+		gib.explode(blood_spray.rotation)
+		
 		queue_free()
+	else:
+		set_state(process_hurt)
+		
+
+
+func _on_detection_area_body_entered(body):
+	if detect_player and attack_target != body:
+		attack_target = body
+		set_state(process_teleport)

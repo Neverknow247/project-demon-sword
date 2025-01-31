@@ -31,6 +31,7 @@ radius = 2.0
 script = ExtResource("1_7u34t")
 
 [node name="gib" parent="." instance=ExtResource("2_c1ytq")]
+position = Vector2(0, -39)
 
 [node name="head" type="Sprite2D" parent="gib"]
 texture = ExtResource("2_7pue3")
@@ -130,3 +131,5 @@ texture = ExtResource("7_capot")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="gib11"]
 shape = SubResource("CircleShape2D_plngd")
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

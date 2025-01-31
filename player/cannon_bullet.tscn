@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://kd8l51w2i53n"]
+
+[ext_resource type="Texture2D" uid="uid://fqb7p885wxtb" path="res://assets/art/player/cannon_bullet.png" id="1_jcnq6"]
+[ext_resource type="PackedScene" uid="uid://cwms461mgulxo" path="res://items/projectile.tscn" id="1_pmsg7"]
+[ext_resource type="Script" path="res://player/cannon_bullet.gd" id="2_prv7o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gih64"]
+size = Vector2(8, 6)
+
+[sub_resource type="Animation" id="Animation_edvc2"]
+resource_name = "fire"
+length = 0.04
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_physics_process"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ros05"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite_2d:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0725o"]
+_data = {
+"RESET": SubResource("Animation_ros05"),
+"fire": SubResource("Animation_edvc2")
+}
+
+[node name="cannon_bullet" instance=ExtResource("1_pmsg7")]
+script = ExtResource("2_prv7o")
+speed = 500
+
+[node name="visible_on_screen_notifier_2d" parent="." index="0"]
+position = Vector2(2.38419e-07, 0)
+scale = Vector2(0.4, 0.3)
+
+[node name="hitbox" parent="." index="1"]
+collision_mask = 17
+damage = 5
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox" index="0"]
+shape = SubResource("RectangleShape2D_gih64")
+
+[node name="sprite_2d" type="Sprite2D" parent="." index="2"]
+texture = ExtResource("1_jcnq6")
+hframes = 2
+
+[node name="animation_player" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_0725o")
+}
+autoplay = "fire"

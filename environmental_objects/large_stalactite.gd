@@ -28,10 +28,6 @@ func _physics_process(delta):
 			
 			global_position.y = ground_cast.get_collision_point().y - sprite_2d.get_rect().size.y / 2 + 16
 
-func _input(event):
-	if event.is_action_pressed("cannon"):
-		falling = true
-
 func _on_hurtbox_hurt(hitbox, damage):
 	if landed:
 		return

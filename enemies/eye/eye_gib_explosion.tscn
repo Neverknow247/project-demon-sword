@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bijab230rt4t3"]
+[gd_scene load_steps=7 format=3 uid="uid://bijab230rt4t3"]
 
 [ext_resource type="PackedScene" uid="uid://cqv6wjgjliwma" path="res://enemies/gib.tscn" id="1_ryonq"]
 [ext_resource type="Script" path="res://enemies/gib_explosion.gd" id="1_y8psc"]
 [ext_resource type="Texture2D" uid="uid://c3ewa1x60mydy" path="res://assets/art/enemies/eye/busted_eye.png" id="2_ihrwd"]
 [ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="3_e1fcv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_11ahu"]
+radius = 8.06226
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ucmj"]
 radius = 2.0
@@ -15,6 +18,9 @@ script = ExtResource("1_y8psc")
 
 [node name="busted_eye" type="Sprite2D" parent="gib"]
 texture = ExtResource("2_ihrwd")
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="gib"]
+shape = SubResource("CircleShape2D_11ahu")
 
 [node name="gib2" parent="." instance=ExtResource("1_ryonq")]
 position = Vector2(-9, -3)

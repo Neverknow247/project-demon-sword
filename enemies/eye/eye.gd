@@ -118,7 +118,7 @@ func _on_hurtbox_hurt(hitbox, damage):
 	if health <= 0:
 		var gib = preload("res://enemies/eye/eye_gib_explosion.tscn").instantiate()
 		get_parent().call_deferred("add_child", gib)
-		gib.global_position = global_position
+		gib.set_deferred("global_position", global_position)
 		gib.explode(blood_spray.rotation)
 		
 		queue_free()

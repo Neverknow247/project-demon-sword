@@ -64,7 +64,7 @@ func process_following(delta) -> void:
 		
 		velocity.x = sign(attack_target.global_position.x - global_position.x) * speed
 		
-		if abs(attack_target.global_positionion.x - global_position.x) < 8:
+		if abs(attack_target.global_position.x - global_position.x) < 8:
 			set_state(process_slam_attack)
 	
 	if velocity.x < 0:
@@ -115,7 +115,7 @@ func _on_hurtbox_hurt(hitbox, damage):
 	if health <= 0:
 		var gib = preload("res://enemies/demon_bat/demon_bat_gib_explosion.tscn").instantiate()
 		get_parent().call_deferred("add_child", gib)
-		gib.global_position = global_position
+		gib.set_deferred("global_position", global_position)
 		gib.explode(blood_spray.rotation)
 		
 		queue_free()

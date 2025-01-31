@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dxgqrfkj0s7l1"]
+[gd_scene load_steps=29 format=3 uid="uid://dxgqrfkj0s7l1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_pmbv3"]
 [ext_resource type="Texture2D" uid="uid://c10hxm5i2rrj8" path="res://assets/art/player/player_left_arm.png" id="2_aokjw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cvqlc3d4k3kn1" path="res://assets/art/player/player_head.png" id="5_n7id2"]
 [ext_resource type="Texture2D" uid="uid://bcksr1efimfy8" path="res://assets/art/player/player_torso.png" id="6_cqej3"]
 [ext_resource type="Texture2D" uid="uid://ckioy3a4im1m3" path="res://assets/art/player/player_right_arm.png" id="7_ltswk"]
+[ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="9_mpg6x"]
 [ext_resource type="PackedScene" uid="uid://b6muhgfi604sl" path="res://player/cannon.tscn" id="10_w55yj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6cqd"]
@@ -20,6 +21,9 @@ height = 32.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ya4ld"]
 radius = 12.0
 height = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fx6r"]
+size = Vector2(12, 34)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0dq4n"]
 radius = 8.0
@@ -619,6 +623,85 @@ _data = {
 "sword_ground_attack_3": SubResource("Animation_ljwtr")
 }
 
+[sub_resource type="Animation" id="Animation_7tnk2"]
+resource_name = "blink"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites/hurtbox")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"@is_invincible_setter"
+}, {
+"args": [false],
+"method": &"@is_invincible_setter"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprites:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(128.498, 128.498, 128.498, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jwi5j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uqfnp"]
+_data = {
+"RESET": SubResource("Animation_jwi5j"),
+"blink": SubResource("Animation_7tnk2")
+}
+
 [node name="player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_pmbv3")
@@ -694,6 +777,13 @@ disabled = true
 z_index = -1
 position = Vector2(0, -32)
 
+[node name="hurtbox" parent="sprites" instance=ExtResource("9_mpg6x")]
+collision_layer = 4
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="sprites/hurtbox"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_7fx6r")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -20)
 shape = SubResource("CapsuleShape2D_0dq4n")
@@ -703,6 +793,11 @@ libraries = {
 "": SubResource("AnimationLibrary_d7icp")
 }
 autoplay = "idle"
+
+[node name="hit_animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uqfnp")
+}
 
 [node name="attack_cooldown_timer" type="Timer" parent="."]
 wait_time = 0.42
@@ -749,6 +844,7 @@ drag_bottom_margin = 0.0
 [node name="camera_follow" type="Marker2D" parent="."]
 position = Vector2(0, -40)
 
+[connection signal="hurt" from="sprites/hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="timeout" from="jump_timer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="jump_buffer_timer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="drop_timer" to="." method="_on_drop_timer_timeout"]

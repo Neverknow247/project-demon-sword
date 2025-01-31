@@ -1,9 +1,9 @@
 extends StaticBody2D
 
-@onready var animation_player = $animation_player
+var stats = Stats
 
-signal save_game
+@onready var animation_player = $animation_player
 
 func _on_player_sensor_body_entered(body):
 	animation_player.play("animate")
-	save_game.emit()
+	SaveAndLoad.update_save_data()

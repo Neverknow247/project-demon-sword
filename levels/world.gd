@@ -1,12 +1,25 @@
 extends Node2D
 
+var stats = Stats
+var all_save_rooms = All_Save_Rooms.new()
+
 @onready var current_level = $level_00
 @onready var main_cam = $player/Camera2D
 @onready var player = $player
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color("#130310"))
+	set_level()
 	change_camera_limits(current_level.camera_limits)
+
+func set_level():
+	current_level.queue_free()
+	var new_level = all_save_rooms["save_rooms"][stats["save_data"]["current_room"]].instantiate()
+	new_level.player = player
+	add_child(new_level)
+	current_level = new_level
+	player.global_position = new_level.save_station.global_position
+	change_camera_limits(new_level.camera_limits)
 
 func change_levels(door):
 	var offset = current_level.position
@@ -19,6 +32,7 @@ func change_levels(door):
 	var exit_position = new_door.position - offset
 	new_level.position = door.position - exit_position
 	current_level = new_level
+	stats["save_data"]["current_room"] = current_level["level_name"]
 	change_camera_limits(new_level.camera_limits)
 
 func get_door_with_connection(old_door, connection):

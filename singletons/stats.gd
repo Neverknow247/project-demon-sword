@@ -14,6 +14,7 @@ var new_save_data = {
 	"version" : ProjectSettings.get_setting("application/config/version"),
 	"time" : 0,
 	"player_position" : Vector2(232,1792),
+	"current_room" : "level_00",
 	"music_section" : 0,
 	"stats" : {
 		"Power On Count" : 0,

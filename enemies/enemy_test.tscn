@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b0h1xp4g8bkig" path="res://enemies/eye/eye.tscn" id="7_7d77d"]
 [ext_resource type="PackedScene" uid="uid://cy2o4cgt1veei" path="res://environmental_objects/large_stalactite.tscn" id="8_f24b8"]
 [ext_resource type="PackedScene" uid="uid://dxgqrfkj0s7l1" path="res://player/player.tscn" id="9_7go5g"]
+
 [ext_resource type="PackedScene" uid="uid://bdrno0s1uwp8c" path="res://items/heart.tscn" id="9_fgj3d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sdds0"]

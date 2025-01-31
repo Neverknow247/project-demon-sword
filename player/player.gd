@@ -3,7 +3,8 @@ extends CharacterBody2D
 var rng = RandomNumberGenerator.new()
 
 const sword_arm_sprite = preload("res://assets/art/player/player_sword_arm.png")
-#const cannon_arm_sprite = preload()
+const cannon_arm_sprite = preload("res://assets/art/player/player_cannon_arm.png")
+const cannon_arm_aimed_sprite = preload("res://assets/art/player/player_cannon_arm_aimed.png")
 #const spear_legs_sprite = preload()
 const right_arm_sprite = preload("res://assets/art/player/player_right_arm.png")
 const left_arm_sprite = preload("res://assets/art/player/player_left_arm.png")
@@ -38,8 +39,10 @@ var current_velocity = 0.0
 @onready var player_torso = $sprites/player_torso
 @onready var player_right_arm = $sprites/player_right_arm
 @onready var animation_player = $AnimationPlayer
+@onready var cannon = $cannon
 
 @onready var attack_cooldown_timer = $attack_cooldown_timer
+@onready var cannon_cooldown_timer = $cannon_cooldown_timer
 @onready var coyote_jump_timer = $coyote_jump_timer
 @onready var coyote_wall_timer = $coyote_wall_timer
 @onready var jump_timer = $jump_timer
@@ -63,6 +66,7 @@ signal hit_door(door)
 func _ready():
 	rng.randomize()
 	check_sword_arm_unlocked()
+	check_cannon_arm_unlocked()
 
 func _physics_process(delta):
 	current_velocity = abs(velocity.x)
@@ -74,6 +78,12 @@ func check_sword_arm_unlocked():
 		player_right_arm.texture = sword_arm_sprite
 	else:
 		player_right_arm.texture = right_arm_sprite
+
+func check_cannon_arm_unlocked():
+	if cannon_arm_unlocked:
+		player_left_arm.texture = cannon_arm_sprite
+	else:
+		player_left_arm.texture = left_arm_sprite
 
 func move_state(delta):
 	sword_action_pressed = false
@@ -92,13 +102,14 @@ func move_state(delta):
 	fall_bonus_check()
 	update_animations(input_axis)
 	sword_check()
+	cannon_check(input_axis)
 	var wall = false
 	move_and_slide()
 	if was_on_wall and is_on_wall():
 		wall = wall_check()
 	if !was_on_floor and is_on_floor():
 		#apply_squash()
-		pass
+		update_left_arm_animations()
 	var just_left_edge = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if just_left_edge:
 		coyote_jump_timer.start()
@@ -158,6 +169,7 @@ func jump(force):
 	just_jumped = true
 	jump_timer.start()
 	velocity.y = -force
+	update_left_arm_animations()
 
 func drop_check():
 	if Input.is_action_pressed("down") || Input.is_action_pressed("c_down"):
@@ -176,6 +188,23 @@ func sword_check():
 			animation_player.play("sword_air_attack_1")
 		state = "sword_state"
 
+func cannon_check(input_axis):
+	if !cannon_arm_unlocked:
+		return
+	if (Input.is_action_just_pressed("cannon") || Input.is_action_just_pressed("c_cannon")) and cannon_cooldown_timer.time_left<=0:
+		cannon_cooldown_timer.start()
+		player_left_arm.texture = cannon_arm_aimed_sprite
+		#rotate_cannon()
+
+#doesnt work yet
+func rotate_cannon():
+	if Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
+		player_left_arm.rotation_degrees = -90
+	elif Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
+		player_left_arm.rotation_degrees = 90
+	else:
+		player_left_arm.rotation_degrees = 0
+
 func fall_bonus_check():
 	if is_on_floor():
 		max_fall_velocity = default_max_fall_velocity
@@ -186,12 +215,15 @@ func fall_bonus_check():
 func update_animations(input_vector):
 	var facing = input_vector
 	if facing != 0:
+		if last_facing != facing:
+			update_left_arm_animations()
 		last_facing = facing
 		player_left_arm.flip_h = facing != 1
 		player_legs.flip_h = facing != 1
 		player_head.flip_h = facing != 1
 		player_torso.flip_h = facing != 1
 		player_right_arm.flip_h = facing != 1
+		cannon.scale.x = facing
 		$sprites/ground_sword_hitbox_1.scale.x = facing
 		$sprites/air_sword_hitbox_1.scale.x = facing
 		$sprites/air_sword_hitbox_2.scale.x = facing
@@ -283,6 +315,7 @@ func sword_state(delta):
 	else:
 		apply_friction(delta)
 	jump_check()
+	update_left_arm_animations()
 	move_and_slide()
 	#if (Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword")) and sword_action_pressed == false:
 		#sword_action_pressed = true
@@ -299,6 +332,11 @@ func sword_state(delta):
 			#else:
 				#animation_player.play("sword_air_attack_%s" %[sword_action_number])
 
+func update_left_arm_animations():
+	if cannon_arm_unlocked:
+		player_left_arm.texture = cannon_arm_sprite
+	else:
+		player_left_arm.texture = left_arm_sprite
 
 func _on_jump_timer_timeout():
 	just_jumped = false

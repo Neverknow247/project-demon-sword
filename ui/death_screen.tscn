@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://c70k0bd4fkank"]
+
+[ext_resource type="Texture2D" uid="uid://duoe51gfvkmjq" path="res://assets/art/ui/you_died.png" id="1_ajkkr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehpt3"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="death_screen" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ehpt3")
+
+[node name="margin_container" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="v_box_container" type="VBoxContainer" parent="margin_container"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="texture_rect" type="TextureRect" parent="margin_container/v_box_container"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_ajkkr")
+expand_mode = 5
+
+[node name="reload" type="Button" parent="margin_container/v_box_container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.108824, 0.126471, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 64
+text = "Reload"
+flat = true
+
+[node name="main_menu" type="Button" parent="margin_container/v_box_container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.108824, 0.126471, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+flat = true
+
+[node name="quit" type="Button" parent="margin_container/v_box_container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.108824, 0.126471, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 64
+text = "Quit"
+flat = true

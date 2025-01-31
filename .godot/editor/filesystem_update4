@@ -1,2 +1,10 @@
+res://delete_before_export/default_window.tscn
+res://assets/art/enemies/demon_bat/demon_bat.tscn
+res://items/heart.tscn
+res://items/blood_orb.tscn
+res://characters/hurtbox.tscn
+res://enemies/enemy_test.tscn
+res://ui/main_menu.tscn
+res://enemies/eye/eye.tscn
 res://ui/stats_display.tscn
-res://ui/ammo_display.gd
+res://ui/death_screen.tscn

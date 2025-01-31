@@ -1,3 +1,7 @@
+TextureRect
+GridContainer
+HBoxContainer
+TextureProgressBar
 AudioStreamPlayer2D
 Node2D
 CollisionPolygon2D
@@ -9,7 +13,3 @@ Timer
 Sprite2D
 Marker2D
 ColorRect
-StaticBody2D
-DeadCultist
-Panel
-Camera2D

@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://cipnj82fofem"]
+
+[ext_resource type="Texture2D" uid="uid://dfsk8ysu0lqj0" path="res://assets/art/ui/empty_orb.png" id="1_amhul"]
+[ext_resource type="Texture2D" uid="uid://bhfytl140gnqp" path="res://assets/art/ui/blood_orb.png" id="2_4kpyo"]
+[ext_resource type="Texture2D" uid="uid://o35l44fvvkkt" path="res://assets/art/ui/cannon_bullet.png" id="3_dnpbv"]
+[ext_resource type="Script" path="res://ui/ammo_display.gd" id="3_yo5i8"]
+
+[node name="stats_display" type="HBoxContainer"]
+offset_right = 97.0
+offset_bottom = 32.0
+
+[node name="health_display" type="TextureProgressBar" parent="."]
+layout_mode = 2
+value = 50.0
+fill_mode = 3
+texture_under = ExtResource("1_amhul")
+texture_progress = ExtResource("2_4kpyo")
+
+[node name="ammo_display" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_vertical = 4
+columns = 5
+script = ExtResource("3_yo5i8")
+
+[node name="texture_rect" type="TextureRect" parent="ammo_display"]
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect2" type="TextureRect" parent="ammo_display"]
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect3" type="TextureRect" parent="ammo_display"]
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect4" type="TextureRect" parent="ammo_display"]
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect5" type="TextureRect" parent="ammo_display"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect6" type="TextureRect" parent="ammo_display"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect7" type="TextureRect" parent="ammo_display"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect8" type="TextureRect" parent="ammo_display"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect9" type="TextureRect" parent="ammo_display"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dnpbv")
+
+[node name="texture_rect10" type="TextureRect" parent="ammo_display"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dnpbv")

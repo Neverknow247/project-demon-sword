@@ -1,6 +1,5 @@
 [gd_scene load_steps=12 format=4 uid="uid://bytlo2t55m2y4"]
 
-
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="1_gmib5"]
 [ext_resource type="Script" path="res://levels/level.gd" id="1_uabxu"]
 [ext_resource type="PackedScene" uid="uid://cy2o4cgt1veei" path="res://environmental_objects/large_stalactite.tscn" id="2_kapkh"]

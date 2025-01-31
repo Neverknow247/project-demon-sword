@@ -33,13 +33,14 @@ var current_velocity = 0.0
 @export var wall_slide_bonus = .1
 
 @onready var sprites = $sprites
-@onready var player_left_arm = $sprites/player_left_arm
+#@onready var player_left_arm = $sprites/player_left_arm
+@onready var player_left_arm = $sprites/cannon/rotation_point/player_left_arm
 @onready var player_legs = $sprites/player_legs
 @onready var player_head = $sprites/player_head
 @onready var player_torso = $sprites/player_torso
 @onready var player_right_arm = $sprites/player_right_arm
 @onready var animation_player = $AnimationPlayer
-@onready var cannon = $cannon
+@onready var cannon = $sprites/cannon
 
 @onready var attack_cooldown_timer = $attack_cooldown_timer
 @onready var cannon_cooldown_timer = $cannon_cooldown_timer
@@ -57,10 +58,12 @@ var damages = []
 var last_facing = 1
 var sword_action_pressed = false
 var sword_action_number = 0
+var aimed_cannon_mode = false
 @export var sword_arm_unlocked = false
 @export var cannon_arm_unlocked = false
 @export var spear_legs_unlocked = false
 
+@warning_ignore("unused_signal")
 signal hit_door(door)
 
 func _ready():
@@ -108,8 +111,9 @@ func move_state(delta):
 	if was_on_wall and is_on_wall():
 		wall = wall_check()
 	if !was_on_floor and is_on_floor():
-		#apply_squash()
+		apply_squash()
 		update_left_arm_animations()
+		animation_player.play("idle")
 	var just_left_edge = was_on_floor and not is_on_floor() and velocity.y >= 0
 	if just_left_edge:
 		coyote_jump_timer.start()
@@ -158,14 +162,16 @@ func jump_check():
 		if Input.is_action_just_pressed("jump") || Input.is_action_just_pressed("c_jump"):
 			jump(jump_force)
 	elif not is_on_floor():
+		@warning_ignore("integer_division")
 		if just_jumped and (Input.is_action_just_released("jump") || Input.is_action_just_released("c_jump")) and velocity.y < -jump_force/10:
+			@warning_ignore("integer_division")
 			velocity.y = -jump_force / 8
 		if Input.is_action_just_pressed("jump") || Input.is_action_just_pressed("c_jump"):
 			jump_buffer_timer.start()
 			jump_buffer = true
 
 func jump(force):
-	#apply_stretch()
+	apply_stretch()
 	just_jumped = true
 	jump_timer.start()
 	velocity.y = -force
@@ -188,22 +194,32 @@ func sword_check():
 			animation_player.play("sword_air_attack_1")
 		state = "sword_state"
 
+@warning_ignore("unused_parameter")
 func cannon_check(input_axis):
 	if !cannon_arm_unlocked:
 		return
+	var rotated = check_rotate_cannon()
 	if (Input.is_action_just_pressed("cannon") || Input.is_action_just_pressed("c_cannon")) and cannon_cooldown_timer.time_left<=0:
+		rotate_cannon(rotated)
 		cannon_cooldown_timer.start()
 		player_left_arm.texture = cannon_arm_aimed_sprite
-		#rotate_cannon()
-
-#doesnt work yet
-func rotate_cannon():
-	if Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
-		player_left_arm.rotation_degrees = -90
-	elif Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
-		player_left_arm.rotation_degrees = 90
+		aimed_cannon_mode = true
+		cannon.fire_cannon(last_facing,rotated)
+	elif aimed_cannon_mode == true:
+		rotate_cannon(rotated)
 	else:
-		player_left_arm.rotation_degrees = 0
+		rotate_cannon(0)
+
+func check_rotate_cannon():
+	if Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
+		return -90
+	elif (Input.is_action_pressed("down") || Input.is_action_pressed("c_down")) and not is_on_floor():
+		return 90
+	else:
+		return 0
+
+func rotate_cannon(amount_rotated):
+	cannon.rotation_point.rotation_degrees = amount_rotated
 
 func fall_bonus_check():
 	if is_on_floor():
@@ -218,7 +234,7 @@ func update_animations(input_vector):
 		if last_facing != facing:
 			update_left_arm_animations()
 		last_facing = facing
-		player_left_arm.flip_h = facing != 1
+		#player_left_arm.flip_h = facing != 1
 		player_legs.flip_h = facing != 1
 		player_head.flip_h = facing != 1
 		player_torso.flip_h = facing != 1
@@ -249,9 +265,10 @@ func update_animations(input_vector):
 
 func wall_check():
 	return
-	if not is_on_floor() and is_on_wall():
-		state = "wall_state"
-		max_velocity = max(max_velocity-wall_friction,default_max_velocity)
+	#@warning_ignore("unreachable_code")
+	#if not is_on_floor() and is_on_wall():
+		#state = "wall_state"
+		#max_velocity = max(max_velocity-wall_friction,default_max_velocity)
 
 func reset_velocity_check():
 	if is_on_floor():
@@ -278,6 +295,7 @@ func wall_state(delta):
 	move_and_slide()
 	wall_detach(delta)
 
+@warning_ignore("unused_parameter")
 func wall_jump_check(wall_axis):
 	if jump_buffer:
 		pass
@@ -320,8 +338,10 @@ func sword_state(delta):
 	#if (Input.is_action_just_pressed("sword") || Input.is_action_just_pressed("c_sword")) and sword_action_pressed == false:
 		#sword_action_pressed = true
 		#sword_action_number += 1
-	if not animation_player.is_playing():
+	if not animation_player.is_playing() or !animation_player.current_animation.contains("sword"):
 		state = "move_state"
+	#else:
+		#print(animation_player.current_animation)
 		#This code is if I can animate combos
 		#if sword_action_pressed == false or sword_action_number > 3:
 			#state = "move_state"
@@ -333,10 +353,21 @@ func sword_state(delta):
 				#animation_player.play("sword_air_attack_%s" %[sword_action_number])
 
 func update_left_arm_animations():
+	aimed_cannon_mode = false
 	if cannon_arm_unlocked:
 		player_left_arm.texture = cannon_arm_sprite
 	else:
 		player_left_arm.texture = left_arm_sprite
+
+func apply_stretch():
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprites,"scale",Vector2(.8,1.2),.1)
+	tween.tween_property(sprites,"scale",Vector2(1,1),.15)
+
+func apply_squash():
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprites,"scale",Vector2(1.2,.8),.1)
+	tween.tween_property(sprites,"scale",Vector2(1,1),.15)
 
 func _on_jump_timer_timeout():
 	just_jumped = false

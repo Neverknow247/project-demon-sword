@@ -45,3 +45,10 @@ var two_cores = false:
 	set(value):
 		two_cores = value
 		ProjectSettings.set_setting("physics/2d/run_on_separate_thread",value)
+
+func instantiate_scene_on_world(scene:PackedScene,position:Vector2):
+	var world = get_tree().current_scene
+	var instance = scene.instantiate()
+	world.add_child(instance)
+	instance.global_position = position
+	return instance

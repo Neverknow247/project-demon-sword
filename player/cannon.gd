@@ -1,14 +1,15 @@
 extends Node2D
 
-@onready var rotation_point = $rotation_point
+var utils = Utils
 
-#func _physics_process(delta):
-	#rotate_cannon()
-#
-#func rotate_cannon():
-	#if Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
-		#rotation_point.rotation_degrees = -90
-	#elif Input.is_action_pressed("up") || Input.is_action_pressed("c_up"):
-		#rotation_point.rotation_degrees = 90
-	#else:
-		#rotation_point.rotation_degrees = 0
+const cannon_bullet = preload("res://player/cannon_bullet.tscn")
+
+@onready var rotation_point = $rotation_point
+@onready var muzzle = $rotation_point/muzzle
+
+func fire_cannon(facing,rotated):
+	var new_cannon_bullet = utils.instantiate_scene_on_world(cannon_bullet,muzzle.global_position)
+	new_cannon_bullet.rotation = rotation_point.rotation
+	if facing == -1 and rotated == 0:
+		new_cannon_bullet.speed *= -1
+		new_cannon_bullet.scale.x = -1

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Project Demon Sword"
-config/version="0.0.1"
+config/version="0.0.3"
 run/main_scene="res://menus/main_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="project_demon_sword"

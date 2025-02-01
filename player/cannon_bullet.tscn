@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://player/cannon_bullet.gd" id="2_prv7o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_daaru"]
-radius = 6.5
+radius = 5.0
 
 [sub_resource type="Animation" id="Animation_ros05"]
 length = 0.001
@@ -64,8 +64,8 @@ script = ExtResource("2_prv7o")
 speed = 500
 
 [node name="visible_on_screen_notifier_2d" parent="." index="0"]
-position = Vector2(-1.43051e-06, -9.53674e-07)
-scale = Vector2(2.4, 2.4)
+position = Vector2(4.76837e-07, -1.43051e-06)
+scale = Vector2(3.2, 3.2)
 
 [node name="hitbox" parent="." index="1"]
 collision_mask = 17

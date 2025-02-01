@@ -10,6 +10,7 @@ class_name Eye
 
 var state_process = process_idle
 var attack_target = null
+var detected = false
 
 @export var shots_before_teleport := 1
 @export var shot_cooldown_time := 1.0
@@ -109,6 +110,7 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_hurtbox_hurt(hitbox, damage):
+	detected = true
 	if state_process == process_teleport:
 		return
 	
@@ -129,7 +131,7 @@ func _on_hurtbox_hurt(hitbox, damage):
 
 
 func _on_detection_area_body_entered(body):
-	if detect_player:
-	#if detect_player and attack_target != body:
+	if detect_player and !detected:
+		detected = true
 		attack_target = body
 		set_state(process_teleport)

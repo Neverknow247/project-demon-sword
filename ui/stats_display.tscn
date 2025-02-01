@@ -20,6 +20,7 @@ texture_under = ExtResource("1_amhul")
 texture_progress = ExtResource("2_4kpyo")
 
 [node name="ammo_display" type="GridContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_vertical = 4

@@ -24,8 +24,8 @@ func set_health(value):
 	health_changed.emit(health)
 	if health <= 0 : player_dead.emit()
 
-func heal():
-	health = max_health
+func heal(value = max_health):
+	health = min(health+value,max_health)
 
 var new_save_data = {
 	"version" : ProjectSettings.get_setting("application/config/version"),

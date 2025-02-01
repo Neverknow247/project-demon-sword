@@ -65,7 +65,7 @@ func process_following(delta) -> void:
 		
 		velocity.x = sign(attack_target.global_position.x - global_position.x) * speed
 		
-		if abs(attack_target.global_position.x - global_position.x) < 8:
+		if abs(attack_target.global_position.x - global_position.x) < 16:
 			set_state(process_slam_attack)
 	
 	if velocity.x < 0:
@@ -104,6 +104,7 @@ func set_state(value) -> void:
 
 func _on_attack_cooldown_timeout():
 	set_state(process_slam_recovery)
+	$attack_recovery_timer.start()
 
 
 func _on_hurtbox_hurt(hitbox, damage):
@@ -137,3 +138,7 @@ func _on_detection_area_body_entered(body):
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hurt":
 		set_state(process_following)
+
+
+func _on_attack_recovery_timer_timeout():
+	set_state(process_following)

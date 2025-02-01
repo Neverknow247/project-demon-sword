@@ -39,7 +39,7 @@ var idle_paused := false
 
 var attack_target = null
 
-const ATTACK_DISTANCE := 42
+const ATTACK_DISTANCE := 20
 
 func _ready() -> void:
 	set_state(process_sleep)
@@ -91,7 +91,7 @@ func process_following(delta:float) -> void:
 		if not ground_cast.is_colliding():
 			velocity.x = 0
 		else:
-			var attack_target_distance = abs(attack_target.global_position.x - global_position.x)
+			var attack_target_distance = abs(attack_target.global_position.x - $flip_helper/sense_marker.global_position.x)
 			
 			if attack_target_distance <= ATTACK_DISTANCE and randi() % 8 == 0:
 				set_state(process_attack)

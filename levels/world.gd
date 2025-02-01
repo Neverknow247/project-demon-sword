@@ -14,7 +14,7 @@ func _ready():
 	stats.player_dead.connect(on_player_dead)
 
 func on_player_dead():
-	get_tree().call_deferred("change_scene_to_file","res://ui/death_screen.tscn")
+	get_tree().call_deferred("change_scene_to_file","res://menus/death_screen.tscn")
 
 func set_level():
 	current_level.queue_free()
@@ -36,6 +36,7 @@ func change_levels(door):
 	var exit_position = new_door.position - offset
 	new_level.position = door.position - exit_position
 	current_level = new_level
+	new_level.set_enemy_target()
 	change_camera_limits(new_level.camera_limits)
 
 func get_door_with_connection(old_door, connection):

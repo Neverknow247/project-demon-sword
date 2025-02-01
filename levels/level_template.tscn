@@ -24,8 +24,12 @@ offset_bottom = 40.0
 
 [node name="ground_layer_4" parent="tilemaps" instance=ExtResource("5_ehsvi")]
 
-[node name="stalactites" type="Node2D" parent="."]
+[node name="environmental" type="Node2D" parent="."]
+
+[node name="stalactites" type="Node2D" parent="environmental"]
 
 [node name="doors" type="Node2D" parent="."]
 
-[node name="cultists" type="Node2D" parent="."]
+[node name="enemies" type="Node2D" parent="."]
+
+[node name="items" type="Node2D" parent="."]

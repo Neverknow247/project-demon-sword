@@ -96,8 +96,7 @@ func _on_shot_cooldown_timeout():
 	pass # Replace with function body.
 
 func teleport() -> void:
-	if attack_target != null:
-		global_position = attack_target.global_position
+	global_position = attack_target.global_position
 	global_position.x += randf_range(-100, 100)
 	global_position.y += randf_range(-100, -16)
 
@@ -130,6 +129,7 @@ func _on_hurtbox_hurt(hitbox, damage):
 
 
 func _on_detection_area_body_entered(body):
-	if detect_player and attack_target != body:
+	if detect_player:
+	#if detect_player and attack_target != body:
 		attack_target = body
 		set_state(process_teleport)

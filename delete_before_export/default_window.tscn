@@ -1,9 +1,20 @@
-[gd_scene load_steps=7 format=4 uid="uid://byu7ulxooo5hi"]
+[gd_scene load_steps=7 format=4 uid="uid://cl0uwo0m7sjs3"]
 
-[ext_resource type="Script" path="res://delete_before_export/default_window.gd" id="1_77bym"]
 [ext_resource type="PackedScene" uid="uid://dxgqrfkj0s7l1" path="res://player/player.tscn" id="2_l5x4h"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_n7se2"]
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="4_fnqmg"]
+
+[sub_resource type="GDScript" id="GDScript_evy4b"]
+script/source = "extends Node2D
+
+func _ready():
+	RenderingServer.set_default_clear_color(Color(\"#130310\"))
+	SaveAndLoad.load_data()
+
+
+func _on_hurtbox_hurt(hitbox, damage):
+	print(damage)
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hte4v"]
 size = Vector2(1921, 46)
@@ -12,7 +23,7 @@ size = Vector2(1921, 46)
 radius = 22.0
 
 [node name="default_window" type="Node2D"]
-script = ExtResource("1_77bym")
+script = SubResource("GDScript_evy4b")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(3, 1033)

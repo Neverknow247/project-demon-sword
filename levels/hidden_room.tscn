@@ -26,11 +26,11 @@ tile_map_data = PackedByteArray("AAAMAAUAAAAAAAUAAAAMAAQAAAABAAEAAAAMAAMAAAABAAE
 
 [node name="ground_layer_4" parent="tilemaps" instance=ExtResource("5_aj0jx")]
 
-[node name="stalactites" type="Node2D" parent="."]
+[node name="environmental" type="Node2D" parent="."]
 
 [node name="doors" type="Node2D" parent="."]
 
-[node name="cultists" type="Node2D" parent="."]
+[node name="enemies" type="Node2D" parent="."]
 
 [node name="items" type="Node2D" parent="."]
 

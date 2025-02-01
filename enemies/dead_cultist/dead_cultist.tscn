@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="4_51765"]
 [ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sfx/hit.wav" id="6_apwu4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3o2sy"]
-radius = 13.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l1yg8"]
+height = 32.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyql6"]
 size = Vector2(16, 2)
@@ -45,7 +45,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_3oc7f"]
 resource_name = "attack"
-length = 0.733337
+length = 0.8
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -53,7 +54,7 @@ tracks/0/path = NodePath("flip_helper/hit_box/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.2),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -65,7 +66,7 @@ tracks/1/path = NodePath("sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.2, 0.266667),
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 11]
@@ -73,7 +74,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_7bh2s"]
 resource_name = "hurt"
-length = 0.133337
+length = 0.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -105,9 +106,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_tylt6"]
 resource_name = "run"
-length = 0.666671
+length = 0.6
 loop_mode = 1
-step = 0.0416667
+step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -115,7 +116,7 @@ tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.428571),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [4, 5, 6, 5]
@@ -156,8 +157,8 @@ height = 234.0
 [node name="dead_cultist" type="CharacterBody2D"]
 collision_layer = 8
 script = ExtResource("1_fycvj")
-speed = 180.0
-health = 8.0
+speed = 150.0
+health = 10.0
 gravity = 500.0
 
 [node name="sprite" type="Sprite2D" parent="."]
@@ -177,11 +178,13 @@ frame = 4
 [node name="flip_helper" type="Node2D" parent="."]
 
 [node name="hit_box" parent="flip_helper" instance=ExtResource("3_r8rsg")]
-position = Vector2(19, -27)
+position = Vector2(16, -31)
 collision_mask = 4
+damage = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="flip_helper/hit_box"]
-shape = SubResource("CircleShape2D_3o2sy")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_l1yg8")
 disabled = true
 
 [node name="collision_shape_2D" type="CollisionShape2D" parent="."]

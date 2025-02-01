@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://enemies/enemy_test.gd" id="1_d3hmx"]
 [ext_resource type="PackedScene" uid="uid://d0hwat12i2kka" path="res://enemies/dead_cultist/dead_cultist.tscn" id="1_e5lfd"]
 [ext_resource type="Texture2D" uid="uid://b00j486ve3rat" path="res://icon.svg" id="2_3suxo"]
-[ext_resource type="PackedScene" uid="uid://cggljalm4l6cb" path="res://assets/art/enemies/demon_bat/demon_bat.tscn" id="2_yfuty"]
+[ext_resource type="PackedScene" uid="uid://cggljalm4l6cb" path="res://enemies/demon_bat/demon_bat.tscn" id="2_yfuty"]
 [ext_resource type="Texture2D" uid="uid://dn1w6yvnh66i0" path="res://assets/art/effects/blood_splatter.png" id="3_bjalf"]
 [ext_resource type="PackedScene" uid="uid://b0h1xp4g8bkig" path="res://enemies/eye/eye.tscn" id="7_7d77d"]
 [ext_resource type="PackedScene" uid="uid://cy2o4cgt1veei" path="res://environmental_objects/large_stalactite.tscn" id="8_f24b8"]

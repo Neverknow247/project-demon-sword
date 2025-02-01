@@ -6,25 +6,25 @@
 [ext_resource type="Texture2D" uid="uid://g41qx0j3s2x4" path="res://assets/art/player/player_legs.png" id="3_o7brg"]
 [ext_resource type="Texture2D" uid="uid://cvqlc3d4k3kn1" path="res://assets/art/player/player_head.png" id="5_n7id2"]
 [ext_resource type="Texture2D" uid="uid://bcksr1efimfy8" path="res://assets/art/player/player_torso.png" id="6_cqej3"]
-[ext_resource type="Texture2D" uid="uid://ckioy3a4im1m3" path="res://assets/art/player/player_right_arm.png" id="7_ltswk"]
+[ext_resource type="Texture2D" uid="uid://ddumbl1bdornc" path="res://assets/art/player/player_sword_arm.png" id="6_yg4ge"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="9_mpg6x"]
 [ext_resource type="PackedScene" uid="uid://dk7pjqyyv82ux" path="res://ui/game_ui.tscn" id="10_t1320"]
 [ext_resource type="PackedScene" uid="uid://b6muhgfi604sl" path="res://player/cannon.tscn" id="10_w55yj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6cqd"]
-radius = 16.0
-height = 56.0
+radius = 18.0
+height = 54.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3onr"]
-radius = 12.0
-height = 32.0
+radius = 18.0
+height = 36.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ya4ld"]
-radius = 12.0
-height = 32.0
+radius = 18.0
+height = 36.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fx6r"]
-size = Vector2(12, 34)
+size = Vector2(12, 29)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0dq4n"]
 radius = 8.0
@@ -738,17 +738,17 @@ vframes = 5
 
 [node name="player_right_arm" type="Sprite2D" parent="sprites"]
 position = Vector2(0, -32)
-texture = ExtResource("7_ltswk")
+texture = ExtResource("6_yg4ge")
 hframes = 5
 vframes = 5
 
 [node name="ground_sword_hitbox_1" parent="sprites" instance=ExtResource("3_27x4q")]
 position = Vector2(0, -32)
 collision_mask = 16
-damage = 3
+damage = 4
 
 [node name="ground_collision_1" type="CollisionShape2D" parent="sprites/ground_sword_hitbox_1"]
-position = Vector2(36, 8)
+position = Vector2(37, 4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_s6cqd")
 disabled = true
@@ -756,10 +756,10 @@ disabled = true
 [node name="air_sword_hitbox_1" parent="sprites" instance=ExtResource("3_27x4q")]
 position = Vector2(0, -32)
 collision_mask = 16
-damage = 2
+damage = 3
 
 [node name="air_collision_1" type="CollisionShape2D" parent="sprites/air_sword_hitbox_1"]
-position = Vector2(24, 4)
+position = Vector2(25, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g3onr")
 disabled = true
@@ -767,10 +767,10 @@ disabled = true
 [node name="air_sword_hitbox_2" parent="sprites" instance=ExtResource("3_27x4q")]
 position = Vector2(0, -32)
 collision_mask = 16
-damage = 2
+damage = 3
 
 [node name="air_collision_2" type="CollisionShape2D" parent="sprites/air_sword_hitbox_2"]
-position = Vector2(-24, 4)
+position = Vector2(-25, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ya4ld")
 disabled = true
@@ -783,7 +783,7 @@ position = Vector2(0, -32)
 collision_layer = 4
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="sprites/hurtbox"]
-position = Vector2(0, -20)
+position = Vector2(0, -22.5)
 shape = SubResource("RectangleShape2D_7fx6r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

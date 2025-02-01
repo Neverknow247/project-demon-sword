@@ -86,3 +86,6 @@ position = Vector2(-184, -240)
 
 [node name="eye" parent="eyes" instance=ExtResource("12_qdgd2")]
 position = Vector2(-104, -256)
+
+[node name="eye2" parent="eyes" instance=ExtResource("12_qdgd2")]
+position = Vector2(-208, 112)

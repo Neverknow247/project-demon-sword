@@ -11,6 +11,10 @@ func _ready():
 	RenderingServer.set_default_clear_color(Color("#130310"))
 	set_level()
 	change_camera_limits(current_level.camera_limits)
+	stats.player_dead.connect(on_player_dead)
+
+func on_player_dead():
+	get_tree().call_deferred("change_scene_to_file","res://ui/death_screen.tscn")
 
 func set_level():
 	current_level.queue_free()
@@ -32,7 +36,6 @@ func change_levels(door):
 	var exit_position = new_door.position - offset
 	new_level.position = door.position - exit_position
 	current_level = new_level
-	stats["save_data"]["current_room"] = current_level["level_name"]
 	change_camera_limits(new_level.camera_limits)
 
 func get_door_with_connection(old_door, connection):

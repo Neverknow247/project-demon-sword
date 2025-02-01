@@ -12,7 +12,6 @@
 
 [node name="level_template" type="Node2D" node_paths=PackedStringArray("save_station")]
 script = ExtResource("1_mjcil")
-level_name = "cannon_room"
 save_station = NodePath("items/save_station")
 
 [node name="camera_limits" type="Panel" parent="."]
@@ -50,6 +49,7 @@ new_level_path = "res://levels/level_07.tscn"
 [node name="items" type="Node2D" parent="."]
 
 [node name="save_station" parent="items" instance=ExtResource("7_la5l4")]
+save_name = "cannon_room"
 
 [node name="cannon" parent="items" instance=ExtResource("9_q1xhr")]
 position = Vector2(-264, -43)

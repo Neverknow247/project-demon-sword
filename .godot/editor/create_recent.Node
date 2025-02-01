@@ -1,3 +1,4 @@
+Node2D
 MarginContainer
 VBoxContainer
 PanelContainer
@@ -6,10 +7,8 @@ GridContainer
 HBoxContainer
 TextureProgressBar
 AudioStreamPlayer2D
-Node2D
 CollisionPolygon2D
 RayCast2D
 CollisionShape2D
 AnimationPlayer
 Area2D
-Timer

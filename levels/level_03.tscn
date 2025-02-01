@@ -65,11 +65,8 @@ new_level_path = "res://levels/level_04.tscn"
 [node name="dead_cultist" parent="cultists" instance=ExtResource("9_f3das")]
 position = Vector2(-352, 80)
 
-[node name="dead_cultist2" parent="cultists" instance=ExtResource("9_f3das")]
-position = Vector2(-256, 80)
-
 [node name="dead_cultist3" parent="cultists" instance=ExtResource("9_f3das")]
-position = Vector2(-136, 80)
+position = Vector2(-184, 80)
 
 [node name="dead_cultist4" parent="cultists" instance=ExtResource("9_f3das")]
 position = Vector2(216, 80)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dsbgm2xfepq0h"]
+[gd_scene load_steps=13 format=4 uid="uid://dsbgm2xfepq0h"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_83bfa"]
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="2_ukisi"]
@@ -10,6 +10,8 @@
 [ext_resource type="Resource" uid="uid://dt7l3p7a2mv1h" path="res://door_connections/03-06_link.tres" id="7_xd08b"]
 [ext_resource type="Resource" uid="uid://b8tt5rpbga0iy" path="res://door_connections/05-06_link.tres" id="8_cwu5y"]
 [ext_resource type="Resource" uid="uid://utkxrscckj8c" path="res://door_connections/06-07_link.tres" id="10_5fw1w"]
+[ext_resource type="PackedScene" uid="uid://d0hwat12i2kka" path="res://enemies/dead_cultist/dead_cultist.tscn" id="11_u35oj"]
+[ext_resource type="PackedScene" uid="uid://b0h1xp4g8bkig" path="res://enemies/eye/eye.tscn" id="12_pxm4w"]
 
 [node name="level_template" type="Node2D"]
 script = ExtResource("1_83bfa")
@@ -61,3 +63,20 @@ connection = ExtResource("10_5fw1w")
 new_level_path = "res://levels/level_07.tscn"
 
 [node name="cultists" type="Node2D" parent="."]
+
+[node name="dead_cultist" parent="cultists" instance=ExtResource("11_u35oj")]
+position = Vector2(448, 80)
+
+[node name="dead_cultist2" parent="cultists" instance=ExtResource("11_u35oj")]
+position = Vector2(296, 352)
+
+[node name="eyes" type="Node2D" parent="."]
+
+[node name="eye" parent="eyes" instance=ExtResource("12_pxm4w")]
+position = Vector2(696, 64)
+
+[node name="eye2" parent="eyes" instance=ExtResource("12_pxm4w")]
+position = Vector2(600, 304)
+
+[node name="eye3" parent="eyes" instance=ExtResource("12_pxm4w")]
+position = Vector2(8, 112)

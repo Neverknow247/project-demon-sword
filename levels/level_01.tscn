@@ -62,10 +62,6 @@ new_level_path = "res://levels/level_02.tscn"
 
 [node name="cultists" type="Node2D" parent="."]
 
-[node name="dead_cultist" parent="cultists" instance=ExtResource("4_ybu3q")]
-position = Vector2(-208, 64)
-detect_player = false
-
 [node name="dead_cultist2" parent="cultists" instance=ExtResource("4_ybu3q")]
 position = Vector2(56, 80)
 detect_player = false
@@ -80,8 +76,4 @@ detect_player = false
 
 [node name="dead_cultist5" parent="cultists" instance=ExtResource("4_ybu3q")]
 position = Vector2(408, -16)
-detect_player = false
-
-[node name="dead_cultist6" parent="cultists" instance=ExtResource("4_ybu3q")]
-position = Vector2(96, 336)
 detect_player = false

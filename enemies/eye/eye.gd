@@ -96,7 +96,8 @@ func _on_shot_cooldown_timeout():
 	pass # Replace with function body.
 
 func teleport() -> void:
-	global_position = attack_target.global_position
+	if attack_target != null:
+		global_position = attack_target.global_position
 	global_position.x += randf_range(-100, 100)
 	global_position.y += randf_range(-100, -16)
 

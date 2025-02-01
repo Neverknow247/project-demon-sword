@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name DeadCultist
 
+var stats = Stats
+
 #enum {
 	#RESTING,
 	#IDLE,
@@ -37,10 +39,12 @@ var idle_paused := false
 
 var attack_target = null
 
-const ATTACK_DISTANCE := 32
+const ATTACK_DISTANCE := 42
 
 func _ready() -> void:
 	set_state(process_sleep)
+	if stats["save_data"]["items"]["sword"]:
+		detect_player = true
 
 func _physics_process(delta):
 	state_process.call(delta)
@@ -89,7 +93,7 @@ func process_following(delta:float) -> void:
 		else:
 			var attack_target_distance = abs(attack_target.global_position.x - global_position.x)
 			
-			if attack_target_distance <= ATTACK_DISTANCE and randi() % 16 == 0:
+			if attack_target_distance <= ATTACK_DISTANCE and randi() % 8 == 0:
 				set_state(process_attack)
 				return
 			

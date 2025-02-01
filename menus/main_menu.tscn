@@ -51,6 +51,7 @@ amount = 16
 process_material = SubResource("ParticleProcessMaterial_eewdh")
 texture = ExtResource("1_capgx")
 lifetime = 5.0
+preprocess = 5.0
 
 [node name="margin_container" type="MarginContainer" parent="."]
 layout_mode = 1

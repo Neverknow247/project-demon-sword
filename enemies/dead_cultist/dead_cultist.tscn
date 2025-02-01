@@ -151,8 +151,8 @@ _data = {
 size = Vector2(16, 46)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43dj7"]
-radius = 24.0
-height = 234.0
+radius = 32.0
+height = 288.0
 
 [node name="dead_cultist" type="CharacterBody2D"]
 collision_layer = 8
@@ -186,6 +186,9 @@ damage = 10
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_l1yg8")
 disabled = true
+
+[node name="sense_marker" type="Marker2D" parent="flip_helper"]
+position = Vector2(18, 0)
 
 [node name="collision_shape_2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -230,6 +233,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(-8, 2.89599e-05)
 shape = SubResource("CapsuleShape2D_43dj7")
 
 [node name="hurt_sound" type="AudioStreamPlayer2D" parent="."]

@@ -12,8 +12,8 @@ radius = 15.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_uv37m"]
 radius = 15.0333
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bj2yv"]
-radius = 9.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x2spi"]
+height = 46.0
 
 [sub_resource type="Animation" id="Animation_88wau"]
 length = 0.001
@@ -50,8 +50,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_m030v"]
 resource_name = "hurt"
-length = 0.208338
-step = 0.0416667
+length = 0.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -138,6 +138,10 @@ target_position = Vector2(0, -50)
 wait_time = 0.5
 one_shot = true
 
+[node name="attack_recovery_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [node name="hurtbox" parent="." instance=ExtResource("3_sbp0g")]
 position = Vector2(0, 7)
 collision_layer = 16
@@ -148,10 +152,13 @@ shape = SubResource("CircleShape2D_uv37m")
 disabled = true
 
 [node name="hitbox" parent="." instance=ExtResource("4_7c13i")]
+collision_mask = 2
+damage = 20
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, 7)
-shape = SubResource("CircleShape2D_bj2yv")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x2spi")
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 libraries = {
@@ -172,6 +179,7 @@ stream = ExtResource("5_w5vq5")
 bus = &"Sounds"
 
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="attack_recovery_timer" to="." method="_on_attack_recovery_timer_timeout"]
 [connection signal="hurt" from="hurtbox" to="." method="_on_hurtbox_hurt"]
 [connection signal="animation_finished" from="animation_player" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

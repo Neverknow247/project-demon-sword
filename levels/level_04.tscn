@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://du5p1xl6744xv"]
+[gd_scene load_steps=13 format=4 uid="uid://du5p1xl6744xv"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_p3lwh"]
 [ext_resource type="PackedScene" uid="uid://c4gsw5q3idm38" path="res://tilesets/ground_layer_1.tscn" id="2_yybnq"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://jd6gt0qvcl13" path="res://tilesets/ground_layer_4.tscn" id="5_tuxgm"]
 [ext_resource type="PackedScene" uid="uid://cy2o4cgt1veei" path="res://environmental_objects/large_stalactite.tscn" id="6_28puv"]
 [ext_resource type="PackedScene" uid="uid://dxb0klj5o77vq" path="res://doors/door.tscn" id="7_1wxya"]
+[ext_resource type="PackedScene" uid="uid://bdrno0s1uwp8c" path="res://items/heart.tscn" id="7_opxb0"]
 [ext_resource type="Resource" uid="uid://cff5jdia4vhen" path="res://door_connections/03-04_link.tres" id="8_p8lrr"]
 [ext_resource type="Resource" uid="uid://diwgnjiqosfiv" path="res://door_connections/04-05_link.tres" id="9_cfpuy"]
 [ext_resource type="PackedScene" uid="uid://d0hwat12i2kka" path="res://enemies/dead_cultist/dead_cultist.tscn" id="10_ib56q"]
@@ -49,6 +50,12 @@ position = Vector2(184, 80)
 [node name="large_stalactite3" parent="environmental/stalactites" instance=ExtResource("6_28puv")]
 position = Vector2(-72, 16)
 
+[node name="hearts" type="Node2D" parent="environmental"]
+
+[node name="heart" parent="environmental/hearts" instance=ExtResource("7_opxb0")]
+position = Vector2(256, -64)
+scale = Vector2(-1, 1)
+
 [node name="doors" type="Node2D" parent="."]
 
 [node name="door" parent="doors" instance=ExtResource("7_1wxya")]
@@ -67,7 +74,7 @@ new_level_path = "res://levels/level_05.tscn"
 [node name="cultists" type="Node2D" parent="enemies"]
 
 [node name="dead_cultist" parent="enemies/cultists" instance=ExtResource("10_ib56q")]
-position = Vector2(-144, 336)
+position = Vector2(-104, 336)
 
 [node name="dead_cultist3" parent="enemies/cultists" instance=ExtResource("10_ib56q")]
 position = Vector2(184, 0)

@@ -1,5 +1,7 @@
 extends Area2D
 
+var stats = Stats
+
 @onready var ray_cast_2d = $ray_cast_2d
 @onready var animation_player = $animation_player
 
@@ -29,5 +31,5 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if not touched_player:
 		touched_player = true
-		
+		stats.heal(5)
 		#heal code here

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cyh01a5l7n8up"
-path="res://.godot/imported/slash.wav-a615a9f5d450eea8512d2e8b31b931de.sample"
+uid="uid://bagdmipt0dvlk"
+path="res://.godot/imported/bark_twice.wav-ca19ba691006392c3934b37fe9fbff3f.sample"
 
 [deps]
 
-source_file="res://assets/sfx/slash.wav"
-dest_files=["res://.godot/imported/slash.wav-a615a9f5d450eea8512d2e8b31b931de.sample"]
+source_file="res://assets/sounds/bark_twice.wav"
+dest_files=["res://.godot/imported/bark_twice.wav-ca19ba691006392c3934b37fe9fbff3f.sample"]
 
 [params]
 

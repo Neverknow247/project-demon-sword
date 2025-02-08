@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dq30ncaak08rk" path="res://assets/art/enemies/dead_cultist/right_leg.png" id="5_debwq"]
 [ext_resource type="Texture2D" uid="uid://bnq0xrnhjqf47" path="res://assets/art/enemies/dead_cultist/left_leg.png" id="6_so2gu"]
 [ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="7_capot"]
-[ext_resource type="AudioStream" uid="uid://gmkn7sqq2yu1" path="res://assets/sfx/gib.wav" id="9_bnvv0"]
+[ext_resource type="AudioStream" uid="uid://gmkn7sqq2yu1" path="res://assets/sounds/gib.wav" id="9_bnvv0"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ddehg"]
 radius = 6.0

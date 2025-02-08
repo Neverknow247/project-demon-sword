@@ -45,6 +45,10 @@ var current_velocity = 0.0
 @onready var hit_animator = $hit_animator
 @onready var cannon = $sprites/cannon
 
+@onready var ground_collision_1 = $sprites/ground_sword_hitbox_1/ground_collision_1
+@onready var air_collision_1 = $sprites/air_sword_hitbox_1/air_collision_1
+@onready var air_collision_2 = $sprites/air_sword_hitbox_2/air_collision_2
+
 @onready var attack_cooldown_timer = $attack_cooldown_timer
 @onready var cannon_cooldown_timer = $cannon_cooldown_timer
 @onready var coyote_jump_timer = $coyote_jump_timer
@@ -253,6 +257,7 @@ func update_animations(input_vector):
 		$Camera2D.drag_horizontal_offset = float(facing/20.0)
 	if not is_on_floor():
 		animation_player.stop()
+		disable_collisions()
 		if velocity.y <= 0:
 			player_left_arm.frame = 10
 			player_legs.frame = 10
@@ -269,6 +274,11 @@ func update_animations(input_vector):
 		animation_player.play("run")
 	else:
 		animation_player.play("idle")
+
+func disable_collisions():
+	ground_collision_1.disabled = true
+	air_collision_1.disabled = true
+	air_collision_2.disabled = true
 
 func wall_check():
 	return

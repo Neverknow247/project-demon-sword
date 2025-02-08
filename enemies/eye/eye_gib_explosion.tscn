@@ -4,7 +4,8 @@
 [ext_resource type="Script" path="res://enemies/gib_explosion.gd" id="1_y8psc"]
 [ext_resource type="Texture2D" uid="uid://c3ewa1x60mydy" path="res://assets/art/enemies/eye/busted_eye.png" id="2_ihrwd"]
 [ext_resource type="Texture2D" uid="uid://805druomiwy5" path="res://assets/art/effects/blood_chunk.png" id="3_e1fcv"]
-[ext_resource type="AudioStream" uid="uid://gmkn7sqq2yu1" path="res://assets/sfx/gib.wav" id="5_b3lnx"]
+[ext_resource type="AudioStream" uid="uid://gmkn7sqq2yu1" path="res://assets/sounds/gib.wav" id="5_b3lnx"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_11ahu"]
 radius = 8.06226

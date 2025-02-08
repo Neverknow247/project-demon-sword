@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bgao6uc80hli5" path="res://assets/art/enemies/dead_cultist/cultist_blood.png" id="3_i2quf"]
 [ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="3_r8rsg"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="4_51765"]
-[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sfx/hit.wav" id="6_apwu4"]
+[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sounds/hit.wav" id="6_apwu4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l1yg8"]
 height = 32.0

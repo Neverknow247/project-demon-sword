@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://enemies/eye/eye.gd" id="1_7xeej"]
 [ext_resource type="Texture2D" uid="uid://di3bvuw1fqlby" path="res://assets/art/enemies/eye/eye.png" id="2_i68rf"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_1kdw8"]
-[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sfx/hit.wav" id="4_c28kg"]
+[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sounds/hit.wav" id="4_c28kg"]
 
 [sub_resource type="Animation" id="Animation_vflco"]
 length = 0.001

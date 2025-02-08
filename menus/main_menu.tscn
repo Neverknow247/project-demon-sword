@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://1u4ouna2d2dh"]
+[gd_scene load_steps=8 format=3 uid="uid://1u4ouna2d2dh"]
 
 [ext_resource type="Texture2D" uid="uid://bnvtsv5wv8mhx" path="res://assets/art/ui/title_faded.png" id="1_b8bd5"]
 [ext_resource type="Texture2D" uid="uid://bhfytl140gnqp" path="res://assets/art/ui/blood_orb.png" id="1_capgx"]
 [ext_resource type="Script" path="res://menus/main_menu.gd" id="1_lxjcg"]
+[ext_resource type="PackedScene" uid="uid://b8fbjxglcek22" path="res://menus/volume_menu.tscn" id="4_gxuwl"]
 
 [sub_resource type="Gradient" id="Gradient_7dr8k"]
 colors = PackedColorArray(1, 1, 1, 0.772549, 1, 1, 1, 0)
@@ -112,6 +113,12 @@ theme_override_font_sizes/font_size = 64
 text = "Quit"
 flat = true
 
+[node name="volume_menu" parent="." instance=ExtResource("4_gxuwl")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="margin_container/v_box_container/new_game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="margin_container/v_box_container/continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="margin_container/v_box_container/options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="margin_container/v_box_container/quit" to="." method="_on_quit_pressed"]
+[connection signal="hide_menu" from="volume_menu" to="." method="_on_volume_menu_hide_menu"]

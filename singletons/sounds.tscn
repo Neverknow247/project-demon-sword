@@ -7,3 +7,53 @@ script = ExtResource("1_k886a")
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
+
+[node name="voice" type="AudioStreamPlayer" parent="."]
+bus = &"Voice"
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="sound_1" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_2" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_3" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_4" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_5" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_6" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_7" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_8" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_9" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_10" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_11" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_12" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_13" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_14" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"
+
+[node name="sound_15" type="AudioStreamPlayer" parent="sounds"]
+bus = &"Sounds"

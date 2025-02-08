@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cu8irvq0mf80h" path="res://assets/art/enemies/demon_bat/demon_bat.png" id="3_ebxvj"]
 [ext_resource type="PackedScene" uid="uid://olyv8q2cl8v7" path="res://characters/hurtbox.tscn" id="3_sbp0g"]
 [ext_resource type="PackedScene" uid="uid://cqtt8alj5aqm1" path="res://characters/hitbox.tscn" id="4_7c13i"]
-[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sfx/hit.wav" id="5_w5vq5"]
+[ext_resource type="AudioStream" uid="uid://b7k86dplx1n4e" path="res://assets/sounds/hit.wav" id="5_w5vq5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jf3xv"]
 radius = 15.0
